@@ -1,9 +1,9 @@
-# Bieterpost landing page
+# Bieterpost Site
 
-Static waitlist page for bieterpost.de, served by GitHub Pages. No build step.
+Waitlist landing page for Bieterpost: daily public-tender alerts for construction and trade firms.
 
-- Form posts to launch-kit tenant `bieterpost` (`/public/lead-capture`, segment `unbestaetigt`).
-- Double opt-in runs as a launch-kit flow; mail and flow sources live in
-  `Idea-backlog/landing/ausschreibung/launch-kit/`.
-- Copy: `Idea-backlog/landing/ausschreibung/copy-v2.md`. Headline variants via `?v=b|c|d`.
-- `?bestaetigt=1` shows the page after the confirmation click.
+Live at [bieterpost.de](https://bieterpost.de). Static HTML, no build step, served by GitHub Pages.
+
+- `index.html`: landing page. Headline variants via `?v=b|c|d`, confirmation view via `?bestaetigt=1`.
+- `impressum.html`, `datenschutz.html`: legal pages.
+- `fonts/`: self-hosted Barlow (OFL), no external requests.
