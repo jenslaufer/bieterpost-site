@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#111110">
+<title>Impressum · Bieterpost</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  /* "Baustelle", same tokens as index.html. Fonts from fonts/, no third-party requests. */
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Barlow"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Barlow"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+  :root { --gelb: #FFC400; --gelb-tief: #E3AE00; --schwarz: #111110; --weiss: #FFFFFF; --beton: #ECEAE5; --aus: cubic-bezier(0.2, 0.8, 0.2, 1); --fokus: var(--schwarz);
+    --f-kopf: "Barlow Condensed", "DIN Condensed", "Arial Narrow", "Roboto Condensed", sans-serif; --f-text: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--weiss); color: var(--schwarz); font: 400 1.0625rem/1.55 var(--f-text); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+  .rahmen { width: 100%; max-width: 46rem; margin-inline: auto; padding-inline: 16px; }
+  header { background: var(--schwarz); color: var(--weiss); --fokus: var(--gelb); }
+  header .rahmen { display: flex; align-items: center; min-height: 48px; }
+  .marke { display: inline-flex; align-items: center; gap: 8px; font: 700 1.375rem/1 var(--f-kopf); letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+  .marke::before { content: ""; width: 16px; height: 16px; background: linear-gradient(var(--gelb), var(--gelb)) 0 0 / 16px 10px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 3px 100% / 2px 6px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 11px 100% / 2px 6px no-repeat; }
+  .marke:hover { background: none; color: var(--gelb); }
+  .marke:active { background: none; color: var(--gelb-tief); }
+  main { padding-block: 48px 96px; }
+  h1 { margin: 0 0 24px; font: 700 clamp(2.125rem, 2.6vw + 1.5rem, 3.5rem)/1.05 var(--f-kopf); letter-spacing: -0.01em; }
+  p { margin: 0; max-width: 62ch; }
+  .todo { margin: 0 0 32px; padding: 24px; background: var(--beton); border: 3px dashed var(--schwarz); font-size: 1rem; line-height: 1.5; }
+  .todo p + p { margin-top: 16px; }
+  .todo strong { font-weight: 600; }
+  a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: background-color 150ms var(--aus), color 150ms var(--aus); }
+  a:hover { background: var(--gelb); color: var(--schwarz); }
+  a:active { background: var(--gelb-tief); color: var(--schwarz); }
+  :focus-visible { outline: 3px solid var(--fokus); outline-offset: 3px; }
+  @media (min-width: 700px) { .rahmen { padding-inline: 32px; } main { padding-block: 64px 128px; } }
+  @media (min-width: 900px) { header .rahmen { min-height: 64px; } .marke { font-size: 1.5rem; } }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; } }
+  h2 { font: 700 1.5rem/1.2 var(--f-kopf); line-height: 1.3; margin: 40px 0 8px; }
+  main p + p { margin-top: 12px; }
+  .zurueck { margin-top: 48px; }
+</style>
+</head>
+<body>
+<header><div class="rahmen"><a class="marke" href="./" aria-label="Bieterpost, Startseite">Bieterpost</a></div></header>
+<main class="rahmen">
+  <h1>Impressum</h1>
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>Solytics GmbH<br>Hörsteiner Str. 20a<br>63791 Karlstein a. Main<br>Deutschland</p>
+  <h2>Vertreten durch</h2>
+  <p>Jens Laufer, Geschäftsführer</p>
+  <h2>Kontakt</h2>
+  <p>E-Mail: <a href="mailto:jens.laufer@solytics.de">jens.laufer@solytics.de</a></p>
+  <h2>Registereintrag</h2>
+  <p>Registergericht: Amtsgericht Aschaffenburg<br>Registernummer: HRB 16879</p>
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>Jens Laufer<br>Hörsteiner Str. 20a<br>63791 Karlstein a. Main</p>
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  <p class="zurueck"><a href="./">Zurück zur Startseite</a></p>
+</main>
+</body>
+</html>

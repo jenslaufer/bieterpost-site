@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  Product name: the literal string "Bieterpost" is a placeholder.
+  It is always written as one unbroken word, so a global search-and-replace
+  over site/*.html swaps it everywhere (title, meta, wordmark, copy, form).
+  og.png carries the name too: regenerate it from ../og-source.html.
+  Launch TODOs: FORM_ENDPOINT (script at the end),
+  impressum.html, datenschutz.html.
+-->
+<title>Bieterpost: Öffentliche Ausschreibungen für Ihr Gewerk</title>
+<meta name="description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. Noch in Entwicklung.">
+<meta name="theme-color" content="#111110">
+<link rel="canonical" href="https://bieterpost.de/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Bieterpost">
+<meta property="og:title" content="Bieterpost: Öffentliche Ausschreibungen für Ihr Gewerk">
+<meta property="og:description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. Noch in Entwicklung.">
+<meta property="og:url" content="https://bieterpost.de/">
+<meta property="og:image" content="https://bieterpost.de/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bautafel einer Ausschreibung mit dem Code „45 – Bauarbeiten“">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Before first paint: mark JS as available, switch to the confirmation view if asked.
+  (function (d) {
+    d.className += " js";
+    if (/[?&]bestaetigt=1(&|$)/.test(location.search)) d.className += " ist-bestaetigt";
+  })(document.documentElement);
+</script>
+<!-- Fonts: one family, Barlow Condensed 500/600/700 and Barlow 400/600. Latin subset, served from fonts/. No third-party requests. -->
+<style>
+/* "Baustelle". One family (Barlow / Barlow Condensed), scale 1.333, 8px grid.
+   Yellow is rationed: the hero, the form, the calls to action and the line on each board that says
+   what is wanted. Everything that explains or proves is black on white or concrete. */
+@font-face { font-family: "Barlow Condensed"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/barlow-condensed-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+/* Stand-in for the condensed cut while the web font loads: local Arial Bold, scaled to the
+   same line length, so headlines do not reflow when Barlow Condensed arrives. */
+@font-face {
+  font-family: "Barlow Condensed Ersatz";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Roboto Bold"), local("Roboto-Bold"), local("Helvetica Neue Bold"), local("Helvetica-Bold");
+  font-weight: 500 700;
+  size-adjust: 75%;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --gelb: #FFC400;
+  --gelb-tief: #E3AE00;
+  --schwarz: #111110;
+  --kohle: #33332F;
+  --weiss: #FFFFFF;
+  --beton: #ECEAE5;
+  --linie: #C6C3BB;
+  --text-2: #4A4A46;
+  --hell: #D4D2CC;
+  --stahl: #7C7A74;
+  --rot: #B4161B;
+
+  --f-kopf: "Barlow Condensed", "Barlow Condensed Ersatz", "DIN Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-text: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* Type scale: perfect fourth (1.333), fluid between 375 and 1440 px. */
+  --t-klein: 0.875rem;
+  --t-text: 1.0625rem;
+  --t-lead: clamp(1.25rem, 0.6vw + 1.1rem, 1.5rem);
+  --t-h3: clamp(1.5rem, 0.7vw + 1.3rem, 1.875rem);
+  --t-h2: clamp(2.125rem, 2.6vw + 1.5rem, 3.5rem);
+  --t-h1: clamp(2.625rem, 4.6vw + 1.3rem, 5.5rem);
+  --t-h1-2: clamp(1.375rem, 1.7vw + 1rem, 2.5rem);
+
+  /* Spacing: 8 px base, 4 px sub-grid for the form. */
+  --s-4: 4px; --s-8: 8px; --s-16: 16px; --s-20: 20px; --s-24: 24px; --s-32: 32px;
+  --s-40: 40px; --s-48: 48px; --s-64: 64px; --s-96: 96px; --s-128: 128px;
+
+  --rand: var(--s-16);
+  --block: var(--s-64);
+  --kopf-h: 48px;
+  --aus: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --wechsel: cubic-bezier(0.65, 0, 0.35, 1);
+  --fokus: var(--schwarz);
+}
+@media (min-width: 700px) { :root { --rand: var(--s-32); --block: var(--s-96); --t-text: 1.125rem; } }
+@media (min-width: 900px) { :root { --kopf-h: 64px; } }
+@media (min-width: 1100px) { :root { --rand: var(--s-48); --block: var(--s-128); } }
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
+  background: var(--weiss); color: var(--schwarz);
+  font: 400 var(--t-text)/1.55 var(--f-text);
+  overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
+}
+main { flex: 1 0 auto; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+[hidden] { display: none !important; }
+
+h1, h2, h3 { font-family: var(--f-kopf); font-weight: 700; text-wrap: balance; hyphens: manual; }
+h2 { font-size: var(--t-h2); line-height: 1.05; letter-spacing: -0.01em; }
+h3 { font-size: var(--t-h3); line-height: 1.15; }
+p { max-width: 62ch; text-wrap: pretty; }
+/* Phones: hyphenate only long words, so short ones and the product name stay whole. */
+p, li, dd { hyphens: auto; hyphenate-limit-chars: 14 6 6; -webkit-hyphenate-limit-before: 6; -webkit-hyphenate-limit-after: 6; }
+@media (min-width: 640px) { p, li, dd { hyphens: manual; } }
+.nb { white-space: nowrap; }
+.silbe { hyphens: manual; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+sup { font: 600 0.7em/1 var(--f-text); vertical-align: top; position: relative; top: 0.25em; }
+sup a { padding: var(--s-4); text-decoration: none; }
+
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: background-color 150ms var(--aus), color 150ms var(--aus); }
+a:hover { background: var(--gelb); color: var(--schwarz); }
+a:active { background: var(--gelb-tief); color: var(--schwarz); }
+:focus-visible { outline: 3px solid var(--fokus); outline-offset: 3px; }
+
+.sprung { position: absolute; left: var(--s-16); top: -100px; z-index: 50; padding: var(--s-16) var(--s-24); background: var(--weiss); color: var(--schwarz); border: 3px solid var(--schwarz); font-weight: 600; }
+.sprung:focus { top: var(--s-16); }
+
+.rahmen { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: var(--rand); }
+.abschnitt { padding-block: var(--block); }
+.abschnitt--beton { background: var(--beton); }
+.abschnitt--schwarz { background: var(--schwarz); color: var(--weiss); --fokus: var(--gelb); }
+.abschnitt--gelb { background: var(--gelb); }
+.abschnitt--gelb a:hover { background: var(--schwarz); color: var(--weiss); }
+@media (min-width: 900px) {
+  .g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-32); }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: var(--s-8) var(--s-32);
+  border: 3px solid var(--schwarz); border-radius: 0; background: var(--schwarz); color: var(--weiss);
+  font: 700 1.375rem/1.1 var(--f-kopf); letter-spacing: 0.01em; text-align: center; text-decoration: none; cursor: pointer;
+  transition: background-color 150ms var(--aus), color 150ms var(--aus), border-color 150ms var(--aus);
+}
+.btn:hover { background: var(--weiss); color: var(--schwarz); }
+.btn:active { background: var(--beton); color: var(--schwarz); }
+.btn--gelb { background: var(--gelb); border-color: var(--gelb); color: var(--schwarz); }
+.btn--gelb:hover { background: var(--weiss); border-color: var(--weiss); }
+.btn--gelb:active { background: var(--gelb-tief); border-color: var(--gelb-tief); }
+.btn[disabled] { background: var(--kohle); border-color: var(--kohle); color: var(--weiss); cursor: progress; }
+
+/* ---------- Header ---------- */
+.kopf { background: var(--schwarz); color: var(--weiss); --fokus: var(--gelb); }
+.kopf__in { display: flex; align-items: center; justify-content: space-between; min-height: var(--kopf-h); }
+.marke { display: inline-flex; align-items: center; gap: var(--s-8); font: 700 1.375rem/1 var(--f-kopf); letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+/* The mark: a board on two posts. */
+.marke::before {
+  content: ""; width: 16px; height: 16px;
+  background:
+    linear-gradient(var(--gelb), var(--gelb)) 0 0 / 16px 10px no-repeat,
+    linear-gradient(var(--gelb), var(--gelb)) 3px 100% / 2px 6px no-repeat,
+    linear-gradient(var(--gelb), var(--gelb)) 11px 100% / 2px 6px no-repeat;
+}
+.marke:hover { background: none; color: var(--gelb); }
+.marke:active { background: none; color: var(--gelb-tief); }
+.kopf__cta { display: none; }
+@media (min-width: 900px) {
+  html { scroll-padding-top: var(--kopf-h); }
+  .kopf { position: sticky; top: 0; z-index: 20; }
+  .kopf .marke { font-size: 1.5rem; }
+  .kopf__cta { display: inline-flex; min-height: 40px; padding-inline: var(--s-16); font-size: 1.125rem; }
+  /* Header button only while the hero button is out of view. */
+  .js .kopf__cta { opacity: 0; visibility: hidden; transition: opacity 200ms var(--aus), visibility 0s linear 200ms, background-color 150ms var(--aus), border-color 150ms var(--aus); }
+  .js .mit-knopf .kopf__cta { opacity: 1; visibility: visible; transition: opacity 200ms var(--aus), visibility 0s, background-color 150ms var(--aus), border-color 150ms var(--aus); }
+}
+
+/* ---------- 3.1 Hero ---------- */
+.held { background: var(--gelb); padding-block: var(--s-24) var(--s-48); }
+.vorzeile { font: 600 1rem/1.25 var(--f-kopf); letter-spacing: 0.01em; margin-bottom: var(--s-16); max-width: none; hyphens: manual; }
+h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
+.h1__zwei { display: block; margin-top: var(--s-16); font-weight: 500; font-size: var(--t-h1-2); line-height: 1.15; letter-spacing: 0; }
+.held__cta { margin-top: var(--s-24); }
+.held__cta .btn { width: 100%; }
+.held__cta p { margin-top: var(--s-8); font-size: var(--t-klein); line-height: 1.4; }
+.held__sub { margin-top: var(--s-32); padding-top: var(--s-16); border-top: 3px solid var(--schwarz); }
+@media (min-width: 560px) { .held__cta .btn { width: auto; } }
+@media (min-width: 900px) {
+  .held { padding-block: var(--s-64) var(--s-96); }
+  .held__in { row-gap: 0; align-items: start; }
+  .vorzeile { grid-column: 1 / -1; font-size: 1.25rem; margin-bottom: var(--s-32); }
+  h1 { grid-column: 1 / span 11; }
+  .h1__zwei { margin-top: var(--s-24); }
+  .held__cta { grid-column: 1 / span 5; margin-top: var(--s-64); }
+  .held__cta .btn { min-height: 64px; padding-inline: var(--s-40); font-size: 1.625rem; }
+  .held__cta p { font-size: 1rem; }
+  .held__sub { grid-column: 7 / span 6; margin-top: var(--s-64); font-size: 1.25rem; line-height: 1.5; }
+}
+
+/* Fact strip: figures in white. Yellow stays with the hero above. */
+.zahlen { background: var(--schwarz); color: var(--weiss); padding-block: var(--s-32) var(--s-48); }
+.zahlen dl > div { padding-block: var(--s-16); border-top: 1px solid var(--kohle); }
+.zahlen dl > div:first-child { border-top: 0; padding-top: 0; }
+.zahlen dt { font: 700 clamp(2.5rem, 3vw + 1.8rem, 4.5rem)/1 var(--f-kopf); letter-spacing: -0.01em; }
+.zahlen dd { margin-top: var(--s-4); color: var(--hell); hyphens: manual; }
+.quelle { margin-top: var(--s-16); padding-top: var(--s-16); border-top: 1px solid var(--kohle); font-size: var(--t-klein); line-height: 1.45; color: var(--hell); max-width: none; }
+@media (min-width: 900px) {
+  .zahlen { padding-block: var(--s-64); }
+  .zahlen dl { display: grid; grid-template-columns: 3fr 5fr 4fr; column-gap: var(--s-32); }
+  .zahlen dl > div { padding-block: 0; border-top: 0; border-left: 1px solid var(--kohle); padding-left: var(--s-32); }
+  .zahlen dl > div:first-child { border-left: 0; padding-left: 0; }
+  .zahlen dd { margin-top: var(--s-8); }
+  .quelle { margin-top: var(--s-48); }
+}
+
+/* ---------- 3.2 Problem ---------- */
+.problem h2 { margin-bottom: var(--s-32); }
+.lead { font-size: var(--t-lead); line-height: 1.45; }
+.punkt { margin-top: var(--s-48); padding-top: var(--s-16); border-top: 3px solid var(--schwarz); }
+.punkt h3 { margin-bottom: var(--s-8); }
+.problem__zahl { margin-top: var(--s-48); padding-top: var(--s-16); border-top: 1px solid var(--schwarz); }
+.fussnoten { margin-top: var(--s-32); padding-top: var(--s-16); border-top: 1px solid var(--linie); display: grid; gap: var(--s-4); font-size: var(--t-klein); line-height: 1.45; color: var(--text-2); max-width: 62ch; }
+.fussnoten li { display: grid; grid-template-columns: var(--s-16) minmax(0, 1fr); scroll-margin-top: var(--s-96); }
+.fussnoten li:target { color: var(--schwarz); }
+@media (min-width: 900px) {
+  .problem h2 { grid-column: 1 / span 5; margin-bottom: 0; position: sticky; top: var(--s-96); align-self: start; }
+  .problem__text { grid-column: 7 / span 6; }
+}
+
+/* ---------- 3.3 How it works ---------- */
+.schritte { margin-top: var(--s-48); border-top: 3px solid var(--schwarz); }
+.schritte li { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: var(--s-16); padding-block: var(--s-24); border-bottom: 1px solid var(--schwarz); hyphens: manual; }
+.schritt__nr { grid-row: 1 / span 2; width: 48px; height: 48px; display: grid; place-items: center; background: var(--schwarz); color: var(--weiss); font: 700 2rem/1 var(--f-kopf); }
+.schritte h3 { align-self: center; }
+.schritte p { grid-column: 2; margin-top: var(--s-8); }
+@media (max-width: 639px) { .schritte p { hyphens: auto; } }
+@media (min-width: 900px) {
+  .schritte { margin-top: var(--s-64); }
+  .schritte li { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-32); padding-block: var(--s-32); }
+  .schritt__nr { grid-row: auto; grid-column: 1 / span 1; width: 64px; height: 64px; font-size: 2.625rem; }
+  .schritte h3 { grid-column: 2 / span 4; align-self: start; padding-top: var(--s-16); }
+  .schritte p { grid-column: 7 / span 6; margin-top: 0; padding-top: var(--s-16); }
+}
+
+/* ---------- 3.4 Proof: four Bautafeln on posts ---------- */
+.beleg__kopf p { margin-top: var(--s-24); color: var(--hell); }
+.tafeln { margin-top: var(--s-48); }
+.tafel { position: relative; background: var(--weiss); color: var(--schwarz); margin-bottom: var(--s-48); }
+.tafel::before, .tafel::after { content: ""; position: absolute; top: 100%; width: 8px; height: var(--s-24); background: var(--stahl); }
+.tafel::before { left: var(--s-32); }
+.tafel::after { right: var(--s-32); }
+.tafel > div { padding: var(--s-16); border-top: 2px solid var(--schwarz); }
+.tafel > div:first-child { border-top: 0; padding-top: var(--s-20); }
+.tafel dt { font: 600 0.875rem/1.3 var(--f-kopf); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); }
+.tafel dd { margin-top: var(--s-4); hyphens: manual; }
+.tafel__titel dd { font: 700 clamp(1.625rem, 1vw + 1.4rem, 2.25rem)/1.1 var(--f-kopf); text-wrap: balance; }
+.tafel__code { background: var(--beton); }
+.tafel__code dd { font: 600 1.375rem/1.2 var(--f-kopf); white-space: nowrap; }
+/* The one yellow line on each board: what is actually wanted. */
+.tafel__gewerk { background: var(--gelb); }
+.tafel__gewerk dt { color: var(--schwarz); }
+.tafel__gewerk dd { font: 700 clamp(1.625rem, 1vw + 1.4rem, 2.25rem)/1.1 var(--f-kopf); text-wrap: balance; }
+@media (min-width: 480px) {
+  .tafel { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .tafel__titel, .tafel__gewerk { grid-column: 1 / -1; }
+  .tafel__code { border-left: 2px solid var(--schwarz); }
+  .tafel > div { padding: var(--s-16) var(--s-24); }
+  .tafel > div:first-child { padding-top: var(--s-24); }
+  .tafel > .tafel__gewerk { padding-bottom: var(--s-20); }
+}
+@media (min-width: 900px) {
+  .tafeln { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-32); margin-top: var(--s-64); }
+  .tafel { grid-row: span 3; grid-template-rows: subgrid; margin-bottom: var(--s-64); }
+  .tafel::before, .tafel::after { height: var(--s-32); width: 10px; }
+  .tafel::before { left: var(--s-48); }
+  .tafel::after { right: var(--s-48); }
+  .tafel > div { padding: var(--s-24) var(--s-32); }
+  .tafel > div:first-child { padding-top: var(--s-32); }
+}
+.beleg__nach p + p { margin-top: var(--s-16); }
+.beleg__nach .btn { margin-top: var(--s-32); width: 100%; }
+.methode { margin-top: var(--s-48); padding-top: var(--s-16); border-top: 1px solid var(--stahl); font-size: var(--t-klein); line-height: 1.5; color: var(--hell); }
+@media (min-width: 560px) { .beleg__nach .btn { width: auto; } }
+@media (min-width: 900px) {
+  .beleg__kopf { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-32); align-items: end; }
+  .beleg__kopf h2 { grid-column: 1 / span 5; }
+  .beleg__kopf p { grid-column: 7 / span 6; margin-top: 0; }
+  .beleg__nach { grid-column: 1 / span 6; }
+  .methode { grid-column: 8 / span 5; margin-top: 0; align-self: start; }
+}
+
+/* The one hazard stripe: marks the part of the page that says "in Entwicklung". */
+.warnband { height: var(--s-16); background: repeating-linear-gradient(-45deg, var(--gelb) 0 16px, var(--schwarz) 16px 32px); }
+@media (min-width: 900px) { .warnband { height: var(--s-24); } }
+
+/* ---------- 3.5 Scope ---------- */
+.umfang h2 { margin-bottom: var(--s-32); }
+.geplant { margin-top: var(--s-16); }
+.geplant li { position: relative; padding: var(--s-16) 0 var(--s-16) var(--s-32); border-top: 1px solid var(--linie); max-width: 62ch; }
+.geplant li:last-child { border-bottom: 1px solid var(--linie); }
+.geplant li::before { content: ""; position: absolute; left: 0; top: calc(var(--s-16) + 0.5em); width: 10px; height: 10px; background: var(--schwarz); }
+.nicht { margin-top: var(--s-48); padding: var(--s-24); border: 3px solid var(--schwarz); }
+.nicht h3 { margin-bottom: var(--s-8); }
+@media (min-width: 900px) {
+  .umfang h2 { grid-column: 1 / -1; margin-bottom: var(--s-48); }
+  .umfang__geplant { grid-column: 1 / span 6; }
+  .nicht { grid-column: 8 / span 5; margin-top: 0; padding: var(--s-32); align-self: start; }
+}
+
+/* ---------- 3.7 FAQ ---------- */
+.faq h2 { margin-bottom: var(--s-32); }
+.faq__liste { border-top: 3px solid var(--schwarz); }
+.faq details { border-bottom: 1px solid var(--schwarz); }
+.faq summary { --strich: var(--schwarz); display: flex; align-items: center; justify-content: space-between; gap: var(--s-16); padding-block: var(--s-16); min-height: 64px; font: 700 var(--t-h3)/1.15 var(--f-kopf); cursor: pointer; list-style: none; text-wrap: balance; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 32px; height: 32px; border: 2px solid var(--schwarz);
+  background: linear-gradient(var(--strich), var(--strich)) center / 14px 2px no-repeat, linear-gradient(var(--strich), var(--strich)) center / 2px 14px no-repeat;
+  transition: background-color 150ms var(--aus), background-size 200ms var(--wechsel); }
+.faq summary:hover::after { background-color: var(--weiss); }
+.faq summary:active::after { background-color: var(--linie); }
+.faq details[open] summary { --strich: var(--weiss); }
+.faq details[open] summary::after { background-color: var(--schwarz); background-size: 14px 2px, 2px 0; }
+.faq details[open] summary:hover::after { background-color: var(--kohle); }
+.faq details p { padding-bottom: var(--s-24); }
+@media (min-width: 900px) {
+  .faq h2 { grid-column: 1 / span 4; position: sticky; top: var(--s-96); align-self: start; }
+  .faq__liste { grid-column: 6 / span 7; }
+}
+
+/* ---------- 3.8 Final CTA and 3.9 form. Spacing on the 4 px form grid. ---------- */
+.schluss__text p { margin-top: var(--s-16); font-size: var(--t-lead); line-height: 1.45; }
+.formblatt { margin-top: var(--s-32); background: var(--weiss); border: 3px solid var(--schwarz); padding: var(--s-32) var(--s-20); scroll-margin-top: var(--s-16); }
+.formblatt a:hover { background: var(--gelb); color: var(--schwarz); }
+.formblatt h3 { margin-bottom: var(--s-24); }
+.formblatt h3:focus { outline: none; }
+.feld { margin-bottom: var(--s-20); }
+.feld label { display: block; margin-bottom: var(--s-8); font: 600 1rem/1.3 var(--f-text); }
+.feld input:not([type="checkbox"]), .feld select {
+  display: block; width: 100%; height: 52px; padding: 0 var(--s-16); border: 2px solid var(--schwarz); border-radius: 0; background-color: var(--weiss); color: var(--schwarz);
+  font: 400 1.0625rem/1.3 var(--f-text); appearance: none; -webkit-appearance: none;
+  transition: background-color 150ms var(--aus);
+}
+.feld select { padding-right: var(--s-48); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23111110' stroke-width='2.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+.feld input::placeholder { color: #6B6B66; opacity: 1; }
+.feld input:hover, .feld select:hover { background-color: var(--beton); }
+.feld input:focus-visible, .feld select:focus-visible { outline-offset: 2px; background-color: var(--weiss); }
+.feld input[aria-invalid="true"], .feld select[aria-invalid="true"] { border: 3px solid var(--rot); }
+.hilfe, .fehler { margin-top: var(--s-4); font-size: var(--t-klein); line-height: 1.4; }
+.hilfe { color: var(--text-2); }
+.fehler { color: var(--rot); font-weight: 600; }
+.feld--haken { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: var(--s-16); align-items: start; }
+.feld--haken input { width: 24px; height: 24px; margin: 0; border: 2px solid var(--schwarz); border-radius: 0; background: var(--weiss) center / 16px 12px no-repeat; appearance: none; -webkit-appearance: none; cursor: pointer; transition: background-color 150ms var(--aus); }
+.feld--haken input:hover { background-color: var(--beton); }
+.feld--haken input:checked { background-color: var(--schwarz); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12'%3E%3Cpath d='M1.5 6l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E"); }
+.feld--haken label { margin: 0; font-weight: 400; line-height: 1.4; cursor: pointer; }
+.feld--haken .fehler { grid-column: 2; }
+.falle { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formblatt .btn { width: 100%; }
+.meldung { margin-top: var(--s-16); padding: var(--s-8) var(--s-16); border-left: 4px solid var(--schwarz); background: var(--beton); font-size: 1rem; line-height: 1.45; font-weight: 600; }
+.meldung:empty { display: none; }
+.meldung.ist-fehler { border-left-color: var(--rot); color: var(--rot); }
+.formblatt__unter { margin-top: var(--s-16); font-size: 1rem; line-height: 1.45; }
+.formblatt__recht { margin-top: var(--s-8); font-size: var(--t-klein); line-height: 1.45; color: var(--text-2); }
+.erfolg h3 { margin-bottom: var(--s-16); }
+.test { margin-top: var(--s-24); padding: var(--s-16); border: 2px dashed var(--text-2); font-size: var(--t-klein); line-height: 1.5; color: var(--text-2); }
+@media (min-width: 640px) { .formblatt { padding: var(--s-48) var(--s-40); } }
+@media (min-width: 900px) {
+  .schluss__text { grid-column: 1 / span 5; position: sticky; top: var(--s-96); align-self: start; }
+  .formblatt { grid-column: 7 / span 6; margin-top: 0; scroll-margin-top: var(--s-96); }
+}
+
+/* ---------- Footer ---------- */
+.fuss { background: var(--schwarz); color: var(--weiss); padding-block: var(--s-32) var(--s-96); --fokus: var(--gelb); }
+.fuss__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-16) var(--s-32); }
+.fuss nav { display: flex; gap: var(--s-24); font-size: 1rem; }
+.fuss nav a { display: inline-block; padding-block: var(--s-8); }
+
+/* ---------- Sticky call on phones ---------- */
+.leiste { position: fixed; inset: auto 0 0 0; z-index: 30; padding: var(--s-8) var(--rand) calc(var(--s-8) + env(safe-area-inset-bottom)); background: var(--weiss); border-top: 3px solid var(--schwarz); visibility: hidden; transform: translateY(100%); transition: transform 250ms var(--aus), visibility 0s linear 250ms; }
+.leiste.ist-da { visibility: visible; transform: none; transition: transform 250ms var(--aus), visibility 0s; }
+.leiste .btn { width: 100%; min-height: 48px; }
+@media (min-width: 900px) {
+  .leiste { display: none; }
+  .fuss { padding-bottom: var(--s-32); }
+}
+
+/* ---------- 3.10 Page after the confirmation click (?bestaetigt=1) ---------- */
+#bestaetigt { display: none; }
+.ist-bestaetigt #seite, .ist-bestaetigt .leiste, .ist-bestaetigt .kopf__cta { display: none; }
+.ist-bestaetigt #bestaetigt, .ist-bestaetigt #bestaetigt[hidden] { display: block !important; }
+.ist-bestaetigt .fuss { padding-bottom: var(--s-32); }
+.dank { background: var(--gelb); padding-block: var(--s-48) var(--s-64); }
+.dank h1 { font-size: var(--t-h2); line-height: 1.05; letter-spacing: -0.01em; }
+.dank h1:focus { outline: none; }
+.dank p { margin-top: var(--s-16); font-size: var(--t-lead); line-height: 1.45; }
+.nachfrage { padding-block: var(--s-48) var(--s-96); }
+.nachfrage__in { max-width: 44rem; }
+.frage { margin: 0; padding: 0; border: 0; min-width: 0; }
+.frage legend { float: left; width: 100%; padding: 0; margin-bottom: var(--s-24); font: 700 var(--t-h3)/1.15 var(--f-kopf); }
+.frage__wahl { clear: both; display: grid; gap: var(--s-8); }
+.wahl { display: flex; align-items: center; min-height: 56px; padding: var(--s-8) var(--s-16); background: var(--weiss); color: var(--schwarz); border: 3px solid var(--schwarz); border-radius: 0; font: 700 1.375rem/1.1 var(--f-kopf); letter-spacing: 0.01em; text-align: left; cursor: pointer; transition: background-color 150ms var(--aus), color 150ms var(--aus), border-color 150ms var(--aus); }
+.wahl:hover { background: var(--schwarz); color: var(--weiss); }
+.wahl:active { background: var(--kohle); border-color: var(--kohle); color: var(--weiss); }
+.wahl[aria-pressed="true"] { background: var(--schwarz); color: var(--weiss); }
+.wahl[disabled] { cursor: default; }
+.wahl[disabled]:not([aria-pressed="true"]) { background: var(--weiss); color: var(--text-2); border-color: var(--linie); }
+.frage__dank { margin-top: var(--s-24); font-weight: 600; }
+.frage__dank:empty { display: none; }
+.bitte { margin-top: var(--s-64); padding-top: var(--s-24); border-top: 3px solid var(--schwarz); }
+.bitte__zeile { margin-top: var(--s-16); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-16); }
+.knopf { min-height: 48px; padding: var(--s-8) var(--s-24); background: var(--weiss); color: var(--schwarz); border: 2px solid var(--schwarz); border-radius: 0; font: 600 1rem/1.2 var(--f-text); cursor: pointer; transition: background-color 150ms var(--aus), color 150ms var(--aus); }
+.knopf:hover { background: var(--schwarz); color: var(--weiss); }
+.knopf:active { background: var(--kohle); color: var(--weiss); }
+.bitte__zeile span { font-size: var(--t-klein); color: var(--text-2); }
+@media (min-width: 640px) { .frage__wahl { grid-template-columns: 1fr 1fr; gap: var(--s-16); } }
+@media (min-width: 900px) {
+  .dank { padding-block: var(--s-96); }
+  .nachfrage { padding-block: var(--s-64) var(--s-128); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; transition-delay: 0s !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf">
+  <div class="rahmen kopf__in">
+    <a class="marke" href="./" aria-label="Bieterpost, Startseite">Bieterpost</a>
+    <a class="btn btn--gelb kopf__cta" href="#warteliste">Auf die Warteliste setzen</a>
+  </div>
+</header>
+
+<main id="seite">
+<div id="inhalt"></div>
+
+  <!-- 3.1 Hero -->
+  <section aria-labelledby="h-held">
+    <div class="held">
+      <div class="rahmen g12 held__in">
+        <p class="vorzeile">Für Handwerks- und Baubetriebe · Noch in Entwicklung</p>
+        <h1 id="h-held"><span id="h1-eins">Öffentliche Ausschreibungen für Ihr Gewerk, jeden Morgen per <span class="nb">E-Mail</span></span> <span class="h1__zwei" id="h1-zwei">Auch die, bei denen das Gewerk nur in der Beschreibung steht</span></h1>
+        <script>
+          // Headline test: ?v=b|c|d swaps H1 and second line. Variant A is the markup above.
+          (function () {
+            var V = {
+              b: ["Rund jede dritte Bau&shy;ausschreibung hat nur den Code „Bauarbeiten“", "Bieterpost liest nach, welches Gewerk gesucht wird"],
+              c: ["Passende Ausschreibungen mit vorbereiteten Unterlagen", "Für Bau- und Handwerksbetriebe"],
+              d: ["Vor dem Kalkulieren wissen, ob Sie mitbieten können", "Passende Ausschreibungen mit geprüften Teilnahme&shy;bedingungen"]
+            };
+            var m = /[?&]v=([bcd])(&|$)/i.exec(location.search);
+            var v = m ? m[1].toLowerCase() : "a";
+            document.documentElement.setAttribute("data-variante", v);
+            if (V[v]) {
+              document.getElementById("h1-eins").innerHTML = V[v][0];
+              document.getElementById("h1-zwei").innerHTML = V[v][1];
+            }
+          })();
+        </script>
+        <div class="held__cta">
+          <a class="btn" id="held-knopf" href="#warteliste">Auf die Warteliste setzen</a>
+          <p>Kostenlos und unverbindlich.</p>
+        </div>
+        <p class="held__sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen die Ausschreibungen, die zu Ihrem Betrieb passen. Dazu steht jeweils, welche Nachweise verlangt werden.</p>
+      </div>
+    </div>
+
+    <!-- Fact strip -->
+    <div class="zahlen">
+      <div class="rahmen">
+        <dl>
+          <div><dt>rund 560</dt><dd>neue Bekanntmachungen pro Werktag</dd></div>
+          <div><dt>knapp die Hälfte</dt><dd>davon Bauleistungen</dd></div>
+          <div><dt>rund 20</dt><dd>Vergabeportale mit eigenem Zugang</dd></div>
+        </dl>
+        <p class="quelle">Eigene Auswertung des Bekanntmachungs&shy;service des Bundes (oeffentlichevergabe.de), 4. bis 11. November 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.2 Problem -->
+  <section class="abschnitt problem" aria-labelledby="h-problem">
+    <div class="rahmen g12">
+      <h2 id="h-problem">Warum passende Ausschreibungen oft nicht ankommen</h2>
+      <div class="problem__text">
+        <p class="lead">Bund, Länder und Gemeinden veröffentlichen jeden Werktag Hunderte Ausschreibungen. Die Unterlagen liegen auf rund 20 Vergabeportalen, jedes mit eigenem Zugang und eigener Suche. Kaum ein Betrieb sieht die alle selbst durch.</p>
+
+        <div class="punkt">
+          <h3>Suchprofile filtern nach dem Code</h3>
+          <p>Die meisten Betriebe nutzen deshalb ein Suchprofil bei einem Ausschreibungsdienst. Das Profil filtert nach dem CPV-Code, den die Vergabestelle der Ausschreibung gibt. Bei rund jeder dritten Bauausschreibung ist das nur der allgemeine Code „Bauarbeiten“. Wer <span class="silbe">„Elektro&shy;installation“</span> eingestellt hat, bekommt solche Ausschreibungen nicht gemeldet, auch wenn darin Elektroarbeiten gesucht werden.</p>
+        </div>
+
+        <div class="punkt">
+          <h3>Die Teilnahme&shy;bedingungen stehen tief in den Unterlagen</h3>
+          <p>Referenzen, Mindestumsatz, Präqualifikation: Ob Sie mitbieten können, steht oft erst weit hinten. Und die üblichen Nachweise müssen Sie bei jeder Ausschreibung neu einreichen. Ein Elektrobetrieb sagte dazu in einer Befragung: „Ich muss es bei jeder Ausschreibung angeben, auch wenn ich zwei Ausschreibungen am selben Tag abgebe.“&nbsp;<sup><a href="#fn-1" aria-label="Fußnote 1">1</a></sup></p>
+        </div>
+
+        <p class="problem__zahl">Die Handwerkskammer Dortmund hat im November 2026 486 Betriebe befragt. Nur 29&nbsp;Prozent hatten in den letzten drei Jahren an einer öffentlichen Ausschreibung teilgenommen. Von den übrigen nannten 57&nbsp;Prozent den Aufwand als Grund.&nbsp;<sup><a href="#fn-2" aria-label="Fußnote 2">2</a></sup></p>
+
+        <ol class="fussnoten">
+          <li id="fn-1"><span aria-hidden="true">1</span><span><span class="sr">Fußnote 1: </span>Institut für Mittelstandsforschung Bonn, IfM-Materialien Nr.&nbsp;307, 2024.</span></li>
+          <li id="fn-2"><span aria-hidden="true">2</span><span><span class="sr">Fußnote 2: </span>Handwerkskammer Dortmund, Sonderumfrage „Vergabeprozesse im Handwerk“, November 2026.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.3 How it works -->
+  <section class="abschnitt abschnitt--beton" aria-labelledby="h-ablauf">
+    <div class="rahmen">
+      <h2 id="h-ablauf">So soll Bieterpost arbeiten</h2>
+      <ol class="schritte">
+        <li>
+          <span class="schritt__nr" aria-hidden="true">1</span>
+          <h3>Betrieb anlegen</h3>
+          <p>Sie geben Gewerk, Umkreis und die Auftragsgröße an, die Sie übernehmen können. Ihre Nachweise laden Sie einmal hoch, zum Beispiel Handwerksrolle, Betriebshaftpflicht und Referenzen.</p>
+        </li>
+        <li>
+          <span class="schritt__nr" aria-hidden="true">2</span>
+          <h3>Passende Ausschreibungen per <span class="nb">E-Mail</span></h3>
+          <p>Bieterpost prüft jeden Werktag alle neuen Ausschreibungen, einschließlich Beschreibung und Losen. Was passt, bekommen Sie morgens per <span class="nb">E-Mail</span>: Leistung, Ort, Frist, Portal und die verlangten Nachweise. Fehlt Ihnen eine Voraussetzung, etwa eine Referenz oder der Mindestumsatz, steht das dabei.</p>
+        </li>
+        <li>
+          <span class="schritt__nr" aria-hidden="true">3</span>
+          <h3>Unterlagen vorbereitet</h3>
+          <p>Für die Ausschreibungen, auf die Sie bieten wollen, sind die Formblätter vorausgefüllt und Ihre Nachweise zusammengestellt. Kalkulieren und abgeben tun Sie selbst, auf dem Portal der Vergabestelle.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3.4 Proof -->
+  <section class="abschnitt abschnitt--schwarz" aria-labelledby="h-beleg">
+    <div class="rahmen">
+      <div class="beleg__kopf">
+        <h2 id="h-beleg">Vier Beispiele aus einer Woche</h2>
+        <p>Wir haben alle Bekanntmachungen aus dem Bekanntmachungs&shy;service des Bundes vom 4. bis 11. November 2026 ausgewertet. Von 1.539 Bauausschreibungen hatten 561 als Hauptcode nur <span class="nb">„45 – Bauarbeiten“.</span> Hier sind vier davon:</p>
+      </div>
+
+      <div class="tafeln">
+        <dl class="tafel">
+          <div class="tafel__titel"><dt>So heißt die Ausschreibung</dt><dd>„Neubau Kita Klingelbach; HLS“</dd></div>
+          <div class="tafel__bauherr"><dt>Auftraggeber</dt><dd>Verbandsgemeinde Aar-Einrich, <time datetime="2026-11-11">11.11.2026</time></dd></div>
+          <div class="tafel__code"><dt>Code</dt><dd>45 – Bauarbeiten</dd></div>
+          <div class="tafel__gewerk"><dt>Gesucht wird</dt><dd>Heizung, Lüftung, Sanitär</dd></div>
+        </dl>
+        <dl class="tafel">
+          <div class="tafel__titel"><dt>So heißt die Ausschreibung</dt><dd>„Generalsanierung Litzelhardthalle“</dd></div>
+          <div class="tafel__bauherr"><dt>Auftraggeber</dt><dd>Stadt Radolfzell am Bodensee, <time datetime="2026-11-05">05.11.2026</time></dd></div>
+          <div class="tafel__code"><dt>Code</dt><dd>45 – Bauarbeiten</dd></div>
+          <div class="tafel__gewerk"><dt>Gesucht wird</dt><dd>Innentüren</dd></div>
+        </dl>
+        <dl class="tafel">
+          <div class="tafel__titel"><dt>So heißt die Ausschreibung</dt><dd>„Burg Gnandstein Bettenhaus/<wbr>Pächterhaus“</dd></div>
+          <div class="tafel__bauherr"><dt>Auftraggeber</dt><dd>Staatsbetrieb Sächsisches Immobilien- und Baumanagement, <time datetime="2026-11-05">05.11.2026</time></dd></div>
+          <div class="tafel__code"><dt>Code</dt><dd>45 – Bauarbeiten</dd></div>
+          <div class="tafel__gewerk"><dt>Gesucht wird</dt><dd>Tischlerarbeiten: Fenster und Hauseingangstür</dd></div>
+        </dl>
+        <dl class="tafel">
+          <div class="tafel__titel"><dt>So heißt die Ausschreibung</dt><dd>„Energetische Sanierung Bürgerhaus Weilerbach“</dd></div>
+          <div class="tafel__bauherr"><dt>Auftraggeber</dt><dd>Verbandsgemeinde Weilerbach, <time datetime="2026-11-05">05.11.2026</time></dd></div>
+          <div class="tafel__code"><dt>Code</dt><dd>45 – Bauarbeiten</dd></div>
+          <div class="tafel__gewerk"><dt>Gesucht wird</dt><dd>Putz- und Stuckarbeiten</dd></div>
+        </dl>
+      </div>
+
+      <div class="g12">
+        <div class="beleg__nach">
+          <p>Bei keiner dieser Ausschreibungen steht das Gewerk im Code. Bei der Kita steht es als Abkürzung „HLS“ im Titel, bei den anderen drei erst in der Beschreibung.</p>
+          <p>Bei Elektro sah es in derselben Woche so aus: 162 Ausschreibungen hatten einen Elektro-Code, weitere 45 nur den allgemeinen Bau-Code.</p>
+          <a class="btn btn--gelb" href="#warteliste">Auf die Warteliste setzen</a>
+        </div>
+        <p class="methode">Eigene Auswertung des amtlichen Datenexports von oeffentlichevergabe.de, Veröffentlichungs&shy;tage 4., 5., 6., 9., 10. und 11. November 2026. Gezählt sind Auftrags&shy;bekanntmachungen einschließlich einzelner Änderungs- und Informations&shy;bekanntmachungen (rund 4&nbsp;Prozent). Bauleistungen: Hauptcode beginnt mit 45. Elektro-Code: CPV 4531… als Haupt- oder Zusatzcode. Stand 12.11.2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="warnband" aria-hidden="true"></div>
+
+  <!-- 3.5 Scope -->
+  <section class="abschnitt umfang" aria-labelledby="h-umfang">
+    <div class="rahmen g12">
+      <h2 id="h-umfang">Was Bieterpost können soll</h2>
+      <div class="umfang__geplant">
+        <p>Bieterpost ist in Entwicklung. Geplant ist:</p>
+        <ul class="geplant">
+          <li>alle neuen Ausschreibungen aus dem Bekanntmachungs&shy;service des Bundes jeden Werktag lesen</li>
+          <li>nach Gewerk, Region und Auftragsgröße auswählen, auch anhand der Beschreibung</li>
+          <li>die Teilnahmebedingungen prüfen: Referenzen, Mindestumsatz, Präqualifikation, Fristen</li>
+          <li>Formblätter vorausfüllen und Ihre Nachweise zusammenstellen</li>
+          <li>an die Angebotsfrist erinnern</li>
+        </ul>
+      </div>
+      <div class="nicht">
+        <h3>Nicht geplant</h3>
+        <p>Bieterpost gibt keine Angebote ab und kalkuliert nicht. Es sieht nur Ausschreibungen, die im Bekanntmachungs&shy;service des Bundes veröffentlicht werden, und nicht jede Gemeinde meldet jede kleine Vergabe dorthin. Die Angaben liest eine KI aus den Unterlagen. Deshalb steht zu jeder Angabe die Fundstelle, damit Sie sie vor der Abgabe prüfen können.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.7 FAQ -->
+  <section class="abschnitt abschnitt--beton faq" aria-labelledby="h-faq">
+    <div class="rahmen g12">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq__liste">
+        <details>
+          <summary>Woher kommen die Ausschreibungen?</summary>
+          <p>Aus dem Bekanntmachungs&shy;service des Bundes (oeffentlichevergabe.de). Dort werden Ausschreibungen von Bund, Ländern und Gemeinden gesammelt, nationale und EU-weite. Die Unterlagen selbst liegen auf dem Portal der jeweiligen Vergabestelle, Bieterpost verlinkt dorthin.</p>
+        </details>
+        <details>
+          <summary>Was kostet Bieterpost?</summary>
+          <p>Die Warteliste ist kostenlos und unverbindlich. Der Preis steht noch nicht fest. Geplant ist ein Monatsbeitrag unter 100 Euro. Sie erfahren den Preis vor dem Start und entscheiden dann.</p>
+        </details>
+        <details>
+          <summary>Für welche Gewerke?</summary>
+          <p>Für Bau und Ausbau, zum Beispiel Elektro, Heizung, Lüftung und Sanitär, Maler, Tischler, Dach, Trockenbau, Fliesen, Rohbau, Straßen- und Tiefbau, Metallbau und Gerüstbau, außerdem Gebäudereinigung. Wir fangen mit den Gewerken an, für die sich die meisten Betriebe eintragen.</p>
+        </details>
+        <details>
+          <summary>Für welche Regionen?</summary>
+          <p>Die Ausschreibungen kommen aus ganz Deutschland. Den Umkreis legen Sie selbst fest.</p>
+        </details>
+        <details>
+          <summary>Gibt es Bieterpost schon?</summary>
+          <p>Nein. Mit der Warteliste prüfen wir, ob genug Betriebe Interesse haben. Wir melden uns in jedem Fall bei Ihnen, auch wenn wir es nicht bauen. Dann löschen wir Ihre Daten.</p>
+        </details>
+        <details>
+          <summary>Gibt Bieterpost das Angebot für mich ab?</summary>
+          <p>Nein. Abgeben müssen Sie selbst auf dem Portal der Vergabestelle. Bieterpost bereitet die Unterlagen vor.</p>
+        </details>
+        <details>
+          <summary>Ich nutze schon einen Ausschreibungsdienst. Was ist anders?</summary>
+          <p>Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. Bieterpost liest zusätzlich Beschreibung und Lose. Außerdem prüft es die Teilnahmebedingungen und bereitet die Formblätter vor.</p>
+        </details>
+        <details>
+          <summary>Was passiert mit meinen Daten?</summary>
+          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, die Betriebsgröße. Wir nutzen die Angaben nur, um Ihnen zum Start zu schreiben und um zu entscheiden, womit wir anfangen. Sie können sich jederzeit abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.8 Final CTA + 3.9 Form + 3.10 Success -->
+  <section class="abschnitt abschnitt--gelb schluss" id="anmeldung" aria-labelledby="h-anmeldung">
+    <div class="rahmen g12">
+      <div class="schluss__text">
+        <h2 id="h-anmeldung">Auf die Warteliste</h2>
+        <p>Tragen Sie Ihr Gewerk und Ihr Bundesland ein. Wir starten mit den Gewerken und Regionen, aus denen die meisten Anmeldungen kommen.</p>
+      </div>
+
+      <div class="formblatt" id="warteliste">
+        <form id="wl-form" method="post" action="#warteliste" novalidate
+              data-senden="Wird gesendet …"
+              data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
+              data-doppelt="Diese Adresse ist schon eingetragen.">
+          <h3>Warteliste für Bieterpost</h3>
+
+          <div class="feld">
+            <label for="f-email">E-Mail-Adresse</label>
+            <input type="email" id="f-email" name="email" placeholder="name@ihr-betrieb.de" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-email-fehler">
+            <p class="fehler" id="f-email-fehler" hidden>Bitte prüfen Sie die E-Mail-Adresse.</p>
+          </div>
+
+          <div class="feld">
+            <label for="f-gewerk">Ihr Gewerk</label>
+            <select id="f-gewerk" name="gewerk" required aria-describedby="f-gewerk-fehler">
+              <option value="">Bitte wählen</option>
+              <option>Elektro</option>
+              <option>Heizung, Lüftung, Sanitär</option>
+              <option>Maler und Lackierer</option>
+              <option>Tischler / Schreiner</option>
+              <option>Dachdecker, Zimmerer, Klempner</option>
+              <option>Trockenbau, Putz, Stuck</option>
+              <option>Fliesen, Estrich, Bodenbelag</option>
+              <option>Maurer, Beton, Rohbau</option>
+              <option>Straßen- und Tiefbau</option>
+              <option>Garten- und Landschaftsbau</option>
+              <option>Metallbau</option>
+              <option>Gerüstbau</option>
+              <option>Abbruch und Rückbau</option>
+              <option>Gebäudereinigung</option>
+              <option>Anderes Gewerk</option>
+            </select>
+            <p class="fehler" id="f-gewerk-fehler" hidden>Bitte wählen Sie Ihr Gewerk.</p>
+          </div>
+
+          <div class="feld" id="f-anderes-feld" hidden>
+            <label for="f-anderes">Welches?</label>
+            <input type="text" id="f-anderes" name="gewerk_anderes" autocomplete="off" maxlength="80">
+          </div>
+
+          <div class="feld">
+            <label for="f-land">Bundesland</label>
+            <select id="f-land" name="bundesland" required aria-describedby="f-land-hilfe f-land-fehler">
+              <option value="">Bitte wählen</option>
+              <option>Baden-Württemberg</option>
+              <option>Bayern</option>
+              <option>Berlin</option>
+              <option>Brandenburg</option>
+              <option>Bremen</option>
+              <option>Hamburg</option>
+              <option>Hessen</option>
+              <option>Mecklenburg-Vorpommern</option>
+              <option>Niedersachsen</option>
+              <option>Nordrhein-Westfalen</option>
+              <option>Rheinland-Pfalz</option>
+              <option>Saarland</option>
+              <option>Sachsen</option>
+              <option>Sachsen-Anhalt</option>
+              <option>Schleswig-Holstein</option>
+              <option>Thüringen</option>
+            </select>
+            <p class="hilfe" id="f-land-hilfe">Wo Ihr Betrieb sitzt</p>
+            <p class="fehler" id="f-land-fehler" hidden>Bitte wählen Sie Ihr Bundesland.</p>
+          </div>
+
+          <div class="feld">
+            <label for="f-groesse">Betriebsgröße (freiwillig)</label>
+            <select id="f-groesse" name="betriebsgroesse">
+              <option value="">Bitte wählen</option>
+              <option value="1-4">1–4 Beschäftigte</option>
+              <option value="5-9">5–9 Beschäftigte</option>
+              <option value="10-19">10–19 Beschäftigte</option>
+              <option value="20-49">20–49 Beschäftigte</option>
+              <option value="50+">50 und mehr Beschäftigte</option>
+            </select>
+          </div>
+
+          <div class="feld feld--haken">
+            <input type="checkbox" id="f-ok" name="einwilligung" required aria-describedby="f-ok-fehler">
+            <label for="f-ok">Ja, ich möchte per <span class="nb">E-Mail</span> über den Start von Bieterpost informiert werden.</label>
+            <p class="fehler" id="f-ok-fehler" hidden>Bitte bestätigen Sie, dass wir Ihnen schreiben dürfen.</p>
+          </div>
+
+          <div class="falle" aria-hidden="true">
+            <label for="f-web">Bitte leer lassen</label>
+            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn" type="submit" id="wl-knopf">Auf die Warteliste setzen</button>
+          <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
+          <p class="formblatt__unter">Sie bekommen eine <span class="nb">E-Mail</span> zur Bestätigung und eine, wenn es losgeht.</p>
+          <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gilt die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+        </form>
+
+        <div class="erfolg" id="wl-erfolg" role="status" aria-live="polite" hidden>
+          <h3 tabindex="-1">Bitte bestätigen Sie Ihre E-Mail-Adresse</h3>
+          <p>Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach.</p>
+          <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 3.10 Page after the confirmation click. The link in the confirmation e-mail should land on ?bestaetigt=1 -->
+<main id="bestaetigt" hidden>
+  <section class="dank" aria-labelledby="h-danke">
+    <div class="rahmen">
+      <h1 id="h-danke" tabindex="-1">Sie stehen auf der Warteliste</h1>
+      <p>Vielen Dank. Wir melden uns, sobald Bieterpost für Ihr Gewerk und Ihr Bundesland startet.</p>
+    </div>
+  </section>
+
+  <section class="nachfrage">
+    <div class="rahmen">
+      <div class="nachfrage__in">
+        <fieldset class="frage" id="frage">
+          <legend>Was kostet Sie bei Ausschreibungen die meiste Zeit?</legend>
+          <div class="frage__wahl">
+            <button class="wahl" type="button" data-antwort="finden">Passende Ausschreibungen finden</button>
+            <button class="wahl" type="button" data-antwort="lesen">Unterlagen lesen</button>
+            <button class="wahl" type="button" data-antwort="nachweise">Nachweise und Formulare</button>
+            <button class="wahl" type="button" data-antwort="kalkulieren">Kalkulieren</button>
+          </div>
+          <p class="frage__dank" id="frage-dank" role="status" aria-live="polite" data-dank="Danke für Ihre Antwort."></p>
+        </fieldset>
+
+        <div class="bitte">
+          <p>Wenn Sie einen Kollegen kennen, für den das interessant ist, schicken Sie ihm gern diese Seite.</p>
+          <!-- NOT IN COPY: button label and the two status texts. -->
+          <div class="bitte__zeile">
+            <button class="knopf" type="button" id="teilen" data-kopiert="Link kopiert." data-manuell="Bitte kopieren Sie die Adresse aus der Adresszeile.">Seite weiterschicken</button>
+            <span id="teilen-status" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  <div class="rahmen fuss__in">
+    <a class="marke" href="./" aria-label="Bieterpost, Startseite">Bieterpost</a>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="leiste" id="leiste">
+  <a class="btn" href="#warteliste">Auf die Warteliste setzen</a>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- Launch settings -------------------------------------------------
+  // Set this to the launch-kit URL. While it starts with "TODO", nothing is sent:
+  // the page shows the success state locally so the flow can be clicked through.
+  // Contract: launch-kit POST /public/lead-capture. 2xx = ok, anything else = error.
+  // Signups land in segment "unbestaetigt"; a launch-kit flow sends the double-opt-in
+  // mail and moves the contact to "waitlist" after the confirmation click.
+  // Local test switches (only while the endpoint is unset): ?sim=fehler, ?sim=doppelt
+  var FORM_ENDPOINT = "https://auth.solytics.de/t/bieterpost/marketing/public/lead-capture";
+  var SEGMENT = "unbestaetigt";
+  // ----------------------------------------------------------------------
+
+  var LIVE = FORM_ENDPOINT.indexOf("TODO") !== 0;
+  var params = new URLSearchParams(location.search);
+  var variante = document.documentElement.getAttribute("data-variante") || "a";
+  var byId = function (id) { return document.getElementById(id); };
+
+  function kampagne() {
+    var u = {};
+    params.forEach(function (wert, name) { if (name.indexOf("utm_") === 0) u[name] = wert.slice(0, 120); });
+    return u;
+  }
+
+  function senden(daten) {
+    daten.variant = variante;
+    daten.utm = kampagne();
+    daten.sent_at = new Date().toISOString();
+    if (!LIVE) {
+      var sim = params.get("sim");
+      console.warn("FORM_ENDPOINT is not set. Not sent:", daten);
+      return new Promise(function (fertig) {
+        setTimeout(function () { fertig(sim === "fehler" ? "fehler" : sim === "doppelt" ? "doppelt" : "ok"); }, 600);
+      });
+    }
+    // launch-kit takes flat string attributes and rejects link-like values
+    // ("u.Landschaftsbau", "google.com"), so put a space after inner dots.
+    var attribute = {};
+    var feld = function (name, wert) {
+      if (wert) attribute[name] = String(wert).replace(/:\/\//g, " ").replace(/\.(?=\S)/g, ". ").slice(0, 200);
+    };
+    ["gewerk", "gewerk_anderes", "bundesland", "betriebsgroesse", "variant"].forEach(function (n) { feld(n, daten[n]); });
+    Object.keys(daten.utm).forEach(function (n) { feld(n, daten.utm[n]); });
+    var abbruch = new AbortController();
+    var uhr = setTimeout(function () { abbruch.abort(); }, 12000);
+    return fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ email: daten.email, segment: SEGMENT, hp: "", attributes: attribute }),
+      signal: abbruch.signal
+    }).then(function (antwort) {
+      clearTimeout(uhr);
+      return antwort.status === 409 ? "doppelt" : antwort.ok ? "ok" : "fehler";
+    }).catch(function () { clearTimeout(uhr); return "fehler"; });
+  }
+
+  // ---- Confirmation view -------------------------------------------------
+  if (params.get("bestaetigt") === "1") {
+    byId("seite").hidden = true;
+    byId("bestaetigt").hidden = false;
+    byId("h-danke").focus({ preventScroll: true });
+
+    // launch-kit has no anonymous event endpoint yet: hide the survey when live
+    // instead of dropping answers silently.
+    if (LIVE) byId("frage").hidden = true;
+    var wahl = document.querySelectorAll(".wahl");
+    wahl.forEach(function (knopf) {
+      knopf.addEventListener("click", function () {
+        wahl.forEach(function (k) { k.disabled = true; k.setAttribute("aria-pressed", String(k === knopf)); });
+        var dank = byId("frage-dank");
+        dank.textContent = dank.getAttribute("data-dank");
+        senden({ type: "survey", answer: knopf.getAttribute("data-antwort"), answer_label: knopf.textContent.trim(), token: params.get("t") || null });
+      });
+    });
+
+    byId("teilen").addEventListener("click", function () {
+      var knopf = this, status = byId("teilen-status");
+      var adresse = location.origin + location.pathname;
+      if (navigator.share) { navigator.share({ title: document.title, url: adresse }).catch(function () {}); return; }
+      var ok = function () { status.textContent = knopf.getAttribute("data-kopiert"); };
+      var nein = function () { status.textContent = knopf.getAttribute("data-manuell"); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(adresse).then(ok, nein); else nein();
+    });
+    return;
+  }
+
+  // ---- Waitlist form -----------------------------------------------------
+  var form = byId("wl-form");
+  var knopf = byId("wl-knopf");
+  var status = byId("wl-status");
+  var knopfText = knopf.textContent;
+  var geprueft = false;
+
+  var pflicht = [
+    { el: byId("f-email"), ok: function (el) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()); } },
+    { el: byId("f-gewerk"), ok: function (el) { return el.value !== ""; } },
+    { el: byId("f-land"), ok: function (el) { return el.value !== ""; } },
+    { el: byId("f-ok"), ok: function (el) { return el.checked; } }
+  ];
+
+  function pruefe(feld) {
+    var gut = feld.ok(feld.el);
+    byId(feld.el.id + "-fehler").hidden = gut;
+    if (gut) feld.el.removeAttribute("aria-invalid"); else feld.el.setAttribute("aria-invalid", "true");
+    return gut;
+  }
+
+  pflicht.forEach(function (feld) {
+    var wieder = function () { if (geprueft) pruefe(feld); };
+    feld.el.addEventListener("input", wieder);
+    feld.el.addEventListener("change", wieder);
+  });
+
+  byId("f-gewerk").addEventListener("change", function () {
+    var anderes = this.value === "Anderes Gewerk";
+    byId("f-anderes-feld").hidden = !anderes;
+    if (!anderes) byId("f-anderes").value = "";
+  });
+
+  function melde(text, istFehler) {
+    status.textContent = text || "";
+    status.classList.toggle("ist-fehler", !!istFehler);
+  }
+
+  form.addEventListener("submit", function (ereignis) {
+    ereignis.preventDefault();
+    geprueft = true;
+    melde("");
+    var falsch = pflicht.filter(function (feld) { return !pruefe(feld); });
+    if (falsch.length) { falsch[0].el.focus(); return; }
+
+    if (byId("f-web").value) { zeigeErfolg(); return; } // bot trap: pretend, send nothing
+
+    knopf.disabled = true;
+    knopf.textContent = form.getAttribute("data-senden");
+    senden({
+      type: "waitlist",
+      email: byId("f-email").value.trim(),
+      gewerk: byId("f-gewerk").value,
+      gewerk_anderes: byId("f-anderes").value.trim() || null,
+      bundesland: byId("f-land").value,
+      betriebsgroesse: byId("f-groesse").value || null,
+      einwilligung: true
+    }).then(function (ergebnis) {
+      knopf.disabled = false;
+      knopf.textContent = knopfText;
+      if (ergebnis === "ok") zeigeErfolg();
+      else if (ergebnis === "doppelt") melde(form.getAttribute("data-doppelt"), false);
+      else melde(form.getAttribute("data-fehler"), true);
+    });
+  });
+
+  function zeigeErfolg() {
+    var erfolg = byId("wl-erfolg");
+    form.hidden = true;
+    erfolg.hidden = false;
+    byId("wl-test").hidden = LIVE;
+    erfolg.querySelector("h3").focus();
+  }
+
+  // ---- Calls that follow the reader: bar on phones, header button on desktop.
+  // Both appear after the hero button has scrolled out; the bar leaves again at the form. ----
+  var kopf = document.querySelector(".kopf");
+  if ("IntersectionObserver" in window) {
+    var leiste = byId("leiste"), nachHeld = false, amFormular = false;
+    var stelle = function () { leiste.classList.toggle("ist-da", nachHeld && !amFormular); };
+    new IntersectionObserver(function (e) {
+      nachHeld = !e[0].isIntersecting && e[0].boundingClientRect.bottom < 0;
+      kopf.classList.toggle("mit-knopf", !e[0].isIntersecting);
+      stelle();
+    }).observe(byId("held-knopf"));
+    new IntersectionObserver(function (e) { amFormular = e[0].isIntersecting; stelle(); }).observe(byId("anmeldung"));
+  } else {
+    kopf.classList.add("mit-knopf");
+  }
+})();
+</script>
+</body>
+</html>
