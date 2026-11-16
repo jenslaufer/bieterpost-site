@@ -660,7 +660,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         <form id="wl-form" method="post" action="#testen" novalidate
               data-senden="Wird gesendet …"
               data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
-              data-doppelt="Diese Adresse ist schon eingetragen.">
+              data-doppelt="Diese Adresse ist schon eingetragen. Mit dem Link in unserer E-Mail können Sie Ihre Angaben ergänzen.">
           <h3>Bieterpost 7 Tage kostenlos testen</h3>
 
           <div class="feld">
@@ -915,13 +915,22 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     }).catch(function () { clearTimeout(uhr); return "fehler"; });
   }
 
+  // 404 (no such signup) shows the thank-you page; when the app cannot be reached, ask
+  // step 2 anyway: saving then reports the error instead of losing the step silently.
   function profilFehlt(token) {
+    var abbruch = new AbortController();
+    var uhr = setTimeout(function () { abbruch.abort(); }, 8000);
     return fetch(PROFIL_ENDPOINT + "/status", {
-      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ p: token })
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ p: token }),
+      signal: abbruch.signal
     })
-      .then(function (antwort) { return antwort.ok ? antwort.json() : { complete: true }; })
+      .then(function (antwort) {
+        clearTimeout(uhr);
+        if (antwort.status === 404) return { complete: true };
+        return antwort.ok ? antwort.json() : { complete: false };
+      })
       .then(function (d) { return !d.complete; })
-      .catch(function () { return false; });
+      .catch(function () { clearTimeout(uhr); return true; });
   }
 
   // ---- Field checks shared by both steps ----------------------------------
@@ -968,6 +977,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   ];
   var pfMelde = melder("pf-status");
   var nachProfil = function () {};
+  var falle = false; // bot trap hit in step 1: step 2 pretends as well
   beobachte("pf", pfFelder);
 
   byId("f-gewerk").addEventListener("change", function () {
@@ -988,6 +998,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     ereignis.preventDefault();
     pfMelde("");
     if (!allesGut("pf", pfFelder)) return;
+    if (falle) { nachProfil(); return; }
     var fertig = warte(byId("pf-knopf"), pfForm.getAttribute("data-senden"));
     profilSenden({
       p: token,
@@ -1056,6 +1067,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       nachProfil = function () {
         zeigeErfolg(byId("h-danke").textContent, byId("bestaetigt").querySelector(".dank p").textContent);
       };
+      document.documentElement.classList.remove("ist-bestaetigt"); // set in <head> to hide #seite
       zeigeProfil(p, "Ihre Adresse ist bestätigt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch zwei Angaben.");
       byId("testen").scrollIntoView();
     });
@@ -1077,7 +1089,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     wlMelde("");
     if (!allesGut("wl", wlFelder)) return;
     var neu = neuerToken();
-    if (byId("f-web").value) { zeigeProfil(neu); return; } // bot trap: pretend, send nothing
+    if (byId("f-web").value) { falle = true; zeigeProfil(neu); return; } // bot trap: pretend, send nothing
 
     var fertig = warte(byId("wl-knopf"), form.getAttribute("data-senden"));
     senden({
