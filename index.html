@@ -12,14 +12,14 @@
   impressum.html, datenschutz.html.
 -->
 <title>Bieterpost: Öffentliche Ausschreibungen für Ihr Gewerk</title>
-<meta name="description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. Noch in Entwicklung.">
+<meta name="description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. 7 Tage kostenlos testen.">
 <meta name="theme-color" content="#111110">
 <link rel="canonical" href="https://bieterpost.de/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Bieterpost">
 <meta property="og:title" content="Bieterpost: Öffentliche Ausschreibungen für Ihr Gewerk">
-<meta property="og:description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. Noch in Entwicklung.">
+<meta property="og:description" content="Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen passende öffentliche Ausschreibungen, auch wenn das Gewerk nur in der Beschreibung steht. 7 Tage kostenlos testen.">
 <meta property="og:url" content="https://bieterpost.de/">
 <meta property="og:image" content="https://bieterpost.de/og.png">
 <meta property="og:image:width" content="1200">
@@ -294,7 +294,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   .methode { grid-column: 8 / span 5; margin-top: 0; align-self: start; }
 }
 
-/* The one hazard stripe: marks the part of the page that says "in Entwicklung". */
+/* The one hazard stripe: marks the part of the page that says what Bieterpost does and does not do. */
 .warnband { height: var(--s-16); background: repeating-linear-gradient(-45deg, var(--gelb) 0 16px, var(--schwarz) 16px 32px); }
 @media (min-width: 900px) { .warnband { height: var(--s-24); } }
 
@@ -435,7 +435,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 <header class="kopf">
   <div class="rahmen kopf__in">
     <a class="marke" href="./" aria-label="Bieterpost, Startseite">Bieterpost</a>
-    <a class="btn btn--gelb kopf__cta" href="#warteliste">Auf die Warteliste setzen</a>
+    <a class="btn btn--gelb kopf__cta" href="#testen">7 Tage kostenlos testen</a>
   </div>
 </header>
 
@@ -446,17 +446,15 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   <section aria-labelledby="h-held">
     <div class="held">
       <div class="rahmen g12 held__in">
-        <p class="vorzeile">Für Handwerks- und Baubetriebe · Noch in Entwicklung</p>
+        <p class="vorzeile">Für Handwerks- und Baubetriebe · 7 Tage kostenlos testen</p>
         <h1 id="h-held"><span id="h1-eins">Öffentliche Ausschreibungen für Ihr Gewerk, jeden Morgen per <span class="nb">E-Mail</span></span> <span class="h1__zwei" id="h1-zwei">Auch die, bei denen das Gewerk nur in der Beschreibung steht</span></h1>
         <script>
-          // Headline test: ?v=b|c|d swaps H1 and second line. Variant A is the markup above.
+          // Headline test: ?v=b swaps H1 and second line. Variant A is the markup above.
           (function () {
             var V = {
-              b: ["Rund jede dritte Bau&shy;ausschreibung hat nur den Code „Bauarbeiten“", "Bieterpost liest nach, welches Gewerk gesucht wird"],
-              c: ["Passende Ausschreibungen mit vorbereiteten Unterlagen", "Für Bau- und Handwerksbetriebe"],
-              d: ["Vor dem Kalkulieren wissen, ob Sie mitbieten können", "Passende Ausschreibungen mit geprüften Teilnahme&shy;bedingungen"]
+              b: ["Rund jede dritte Bau&shy;ausschreibung hat nur den Code „Bauarbeiten“", "Bieterpost liest nach, welches Gewerk gesucht wird"]
             };
-            var m = /[?&]v=([bcd])(&|$)/i.exec(location.search);
+            var m = /[?&]v=([b])(&|$)/i.exec(location.search);
             var v = m ? m[1].toLowerCase() : "a";
             document.documentElement.setAttribute("data-variante", v);
             if (V[v]) {
@@ -466,10 +464,10 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
           })();
         </script>
         <div class="held__cta">
-          <a class="btn" id="held-knopf" href="#warteliste">Auf die Warteliste setzen</a>
-          <p>Kostenlos und unverbindlich.</p>
+          <a class="btn" id="held-knopf" href="#testen">7 Tage kostenlos testen</a>
+          <p>Ohne Zahlungsdaten. Der Test endet von selbst. Danach 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
         </div>
-        <p class="held__sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen die Ausschreibungen, die zu Ihrem Betrieb passen. Dazu steht jeweils, welche Nachweise verlangt werden.</p>
+        <p class="held__sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
       </div>
     </div>
 
@@ -516,22 +514,22 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   <!-- 3.3 How it works -->
   <section class="abschnitt abschnitt--beton" aria-labelledby="h-ablauf">
     <div class="rahmen">
-      <h2 id="h-ablauf">So soll Bieterpost arbeiten</h2>
+      <h2 id="h-ablauf">So funktioniert Bieterpost</h2>
       <ol class="schritte">
         <li>
           <span class="schritt__nr" aria-hidden="true">1</span>
-          <h3>Betrieb anlegen</h3>
-          <p>Sie geben Gewerk, Umkreis und die Auftragsgröße an, die Sie übernehmen können. Ihre Nachweise laden Sie einmal hoch, zum Beispiel Handwerksrolle, Betriebshaftpflicht und Referenzen.</p>
+          <h3>Gewerk und Bundesland angeben</h3>
+          <p>Sie tragen Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk und Ihr Bundesland ein und bestätigen die Adresse. Zahlungsdaten brauchen Sie dafür nicht.</p>
         </li>
         <li>
           <span class="schritt__nr" aria-hidden="true">2</span>
-          <h3>Passende Ausschreibungen per <span class="nb">E-Mail</span></h3>
-          <p>Bieterpost prüft jeden Werktag alle neuen Ausschreibungen, einschließlich Beschreibung und Losen. Was passt, bekommen Sie morgens per <span class="nb">E-Mail</span>: Leistung, Ort, Frist, Portal und die verlangten Nachweise. Fehlt Ihnen eine Voraussetzung, etwa eine Referenz oder der Mindestumsatz, steht das dabei.</p>
+          <h3>Jeden Morgen um 6&nbsp;Uhr eine <span class="nb">E-Mail</span></h3>
+          <p>Bieterpost liest jeden Tag alle neuen Ausschreibungen aus dem Bekanntmachungs&shy;service des Bundes, einschließlich Beschreibung und Losen. Was zu Ihrem Gewerk und Bundesland passt, bekommen Sie morgens per <span class="nb">E-Mail</span>: Titel, kurze Zusammenfassung, Auftraggeber, Ort, Frist und der Link zu den Unterlagen. An Tagen ohne passende Ausschreibung kommt keine <span class="nb">E-Mail</span>.</p>
         </li>
         <li>
           <span class="schritt__nr" aria-hidden="true">3</span>
-          <h3>Unterlagen vorbereitet</h3>
-          <p>Für die Ausschreibungen, auf die Sie bieten wollen, sind die Formblätter vorausgefüllt und Ihre Nachweise zusammengestellt. Kalkulieren und abgeben tun Sie selbst, auf dem Portal der Vergabestelle.</p>
+          <h3>Nach 7 Tagen entscheiden</h3>
+          <p>Wenn Bieterpost Ihnen nützt, schließen Sie das Abo über den Link in der <span class="nb">E-Mail</span> ab. Wenn nicht, tun Sie nichts. Der Test endet dann von selbst und es entstehen keine Kosten.</p>
         </li>
       </ol>
     </div>
@@ -576,7 +574,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         <div class="beleg__nach">
           <p>Bei keiner dieser Ausschreibungen steht das Gewerk im Code. Bei der Kita steht es als Abkürzung „HLS“ im Titel, bei den anderen drei erst in der Beschreibung.</p>
           <p>Bei Elektro sah es in derselben Woche so aus: 162 Ausschreibungen hatten einen Elektro-Code, weitere 45 nur den allgemeinen Bau-Code.</p>
-          <a class="btn btn--gelb" href="#warteliste">Auf die Warteliste setzen</a>
+          <a class="btn btn--gelb" href="#testen">7 Tage kostenlos testen</a>
         </div>
         <p class="methode">Eigene Auswertung des amtlichen Datenexports von oeffentlichevergabe.de, Veröffentlichungs&shy;tage 4., 5., 6., 9., 10. und 11. November 2026. Gezählt sind Auftrags&shy;bekanntmachungen einschließlich einzelner Änderungs- und Informations&shy;bekanntmachungen (rund 4&nbsp;Prozent). Bauleistungen: Hauptcode beginnt mit 45. Elektro-Code: CPV 4531… als Haupt- oder Zusatzcode. Stand 12.11.2026.</p>
       </div>
@@ -588,20 +586,18 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   <!-- 3.5 Scope -->
   <section class="abschnitt umfang" aria-labelledby="h-umfang">
     <div class="rahmen g12">
-      <h2 id="h-umfang">Was Bieterpost können soll</h2>
+      <h2 id="h-umfang">Was Bieterpost macht</h2>
       <div class="umfang__geplant">
-        <p>Bieterpost ist in Entwicklung. Geplant ist:</p>
         <ul class="geplant">
-          <li>alle neuen Ausschreibungen aus dem Bekanntmachungs&shy;service des Bundes jeden Werktag lesen</li>
-          <li>nach Gewerk, Region und Auftragsgröße auswählen, auch anhand der Beschreibung</li>
-          <li>die Teilnahmebedingungen prüfen: Referenzen, Mindestumsatz, Präqualifikation, Fristen</li>
-          <li>Formblätter vorausfüllen und Ihre Nachweise zusammenstellen</li>
-          <li>an die Angebotsfrist erinnern</li>
+          <li>jeden Tag alle neuen Ausschreibungen aus dem Bekanntmachungs&shy;service des Bundes lesen</li>
+          <li>nach Gewerk und Bundesland auswählen, auch anhand der Beschreibung und der Lose</li>
+          <li>jede Ausschreibung in zwei, drei Sätzen zusammenfassen</li>
+          <li>Ihnen morgens um 6&nbsp;Uhr die neuen Treffer schicken, mit Frist und Link zu den Unterlagen</li>
         </ul>
       </div>
       <div class="nicht">
-        <h3>Nicht geplant</h3>
-        <p>Bieterpost gibt keine Angebote ab und kalkuliert nicht. Es sieht nur Ausschreibungen, die im Bekanntmachungs&shy;service des Bundes veröffentlicht werden, und nicht jede Gemeinde meldet jede kleine Vergabe dorthin. Die Angaben liest eine KI aus den Unterlagen. Deshalb steht zu jeder Angabe die Fundstelle, damit Sie sie vor der Abgabe prüfen können.</p>
+        <h3>Was Bieterpost nicht macht</h3>
+        <p>Bieterpost gibt keine Angebote ab und kalkuliert nicht. Die Unterlagen laden Sie auf dem Portal der Vergabestelle herunter. Bieterpost sieht nur Ausschreibungen, die im Bekanntmachungs&shy;service des Bundes veröffentlicht werden, und nicht jede Gemeinde meldet jede kleine Vergabe dorthin. Die Zuordnung zum Gewerk und die Zusammenfassung macht eine KI. Prüfen Sie deshalb vor einem Angebot die Bekanntmachung selbst.</p>
       </div>
     </div>
   </section>
@@ -617,31 +613,35 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Was kostet Bieterpost?</summary>
-          <p>Die Warteliste ist kostenlos und unverbindlich. Der Preis steht noch nicht fest. Geplant ist ein Monatsbeitrag unter 100 Euro. Sie erfahren den Preis vor dem Start und entscheiden dann.</p>
+          <p>Die ersten 7 Tage sind kostenlos, ohne Zahlungsdaten. Danach kostet Bieterpost 79&nbsp;€ im Monat zzgl. MwSt. Bezahlt wird über Stripe. Ihre Rechnungen finden Sie im Kundenportal.</p>
+        </details>
+        <details>
+          <summary>Was passiert nach den 7 Tagen?</summary>
+          <p>Am fünften Tag erinnern wir Sie per <span class="nb">E-Mail</span>. Wenn Sie nicht abonnieren, endet der Test nach dem siebten Tag von selbst. Sie bekommen dann keine Ausschreibungen mehr und zahlen nichts.</p>
+        </details>
+        <details>
+          <summary>Wie kündige ich?</summary>
+          <p>Jederzeit zum Ende des laufenden Monats. Den Link zum Kundenportal finden Sie in jeder <span class="nb">E-Mail</span> von Bieterpost.</p>
         </details>
         <details>
           <summary>Für welche Gewerke?</summary>
-          <p>Für Bau und Ausbau, zum Beispiel Elektro, Heizung, Lüftung und Sanitär, Maler, Tischler, Dach, Trockenbau, Fliesen, Rohbau, Straßen- und Tiefbau, Metallbau und Gerüstbau, außerdem Gebäudereinigung. Wir fangen mit den Gewerken an, für die sich die meisten Betriebe eintragen.</p>
+          <p>Für Bau und Ausbau, zum Beispiel Elektro, Heizung, Lüftung und Sanitär, Maler, Tischler, Dach, Trockenbau, Fliesen, Rohbau, Straßen- und Tiefbau, Metallbau und Gerüstbau, außerdem Gebäudereinigung. Die Auswahl im Formular zeigt alle Gewerke.</p>
         </details>
         <details>
           <summary>Für welche Regionen?</summary>
-          <p>Die Ausschreibungen kommen aus ganz Deutschland. Den Umkreis legen Sie selbst fest.</p>
-        </details>
-        <details>
-          <summary>Gibt es Bieterpost schon?</summary>
-          <p>Nein. Mit der Warteliste prüfen wir, ob genug Betriebe Interesse haben. Wir melden uns in jedem Fall bei Ihnen, auch wenn wir es nicht bauen. Dann löschen wir Ihre Daten.</p>
+          <p>Für ganz Deutschland. Sie wählen das Bundesland, in dem Sie Aufträge suchen.</p>
         </details>
         <details>
           <summary>Gibt Bieterpost das Angebot für mich ab?</summary>
-          <p>Nein. Abgeben müssen Sie selbst auf dem Portal der Vergabestelle. Bieterpost bereitet die Unterlagen vor.</p>
+          <p>Nein. Die Unterlagen laden Sie auf dem Portal der Vergabestelle herunter, das Angebot geben Sie dort selbst ab. Bieterpost sorgt dafür, dass Sie die passenden Ausschreibungen rechtzeitig sehen.</p>
         </details>
         <details>
           <summary>Ich nutze schon einen Ausschreibungsdienst. Was ist anders?</summary>
-          <p>Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. Bieterpost liest zusätzlich Beschreibung und Lose. Außerdem prüft es die Teilnahmebedingungen und bereitet die Formblätter vor.</p>
+          <p>Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. Bieterpost liest zusätzlich Beschreibung und Lose. So finden Sie auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Testen Sie es 7 Tage parallel und vergleichen Sie.</p>
         </details>
         <details>
           <summary>Was passiert mit meinen Daten?</summary>
-          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, die Betriebsgröße. Wir nutzen die Angaben nur, um Ihnen zum Start zu schreiben und um zu entscheiden, womit wir anfangen. Sie können sich jederzeit abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, die Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der <span class="nb">E-Mail</span> anklicken, um die Auswahl zu verbessern. Sie können sich in jeder <span class="nb">E-Mail</span> abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
         </details>
       </div>
     </div>
@@ -651,16 +651,16 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   <section class="abschnitt abschnitt--gelb schluss" id="anmeldung" aria-labelledby="h-anmeldung">
     <div class="rahmen g12">
       <div class="schluss__text">
-        <h2 id="h-anmeldung">Auf die Warteliste</h2>
-        <p>Tragen Sie Ihr Gewerk und Ihr Bundesland ein. Wir starten mit den Gewerken und Regionen, aus denen die meisten Anmeldungen kommen.</p>
+        <h2 id="h-anmeldung">7 Tage kostenlos testen</h2>
+        <p>Tragen Sie Ihr Gewerk und Ihr Bundesland ein. Nach der Bestätigung bekommen Sie jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen.</p>
       </div>
 
-      <div class="formblatt" id="warteliste">
-        <form id="wl-form" method="post" action="#warteliste" novalidate
+      <div class="formblatt" id="testen">
+        <form id="wl-form" method="post" action="#testen" novalidate
               data-senden="Wird gesendet …"
               data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
               data-doppelt="Diese Adresse ist schon eingetragen.">
-          <h3>Warteliste für Bieterpost</h3>
+          <h3>Bieterpost 7 Tage kostenlos testen</h3>
 
           <div class="feld">
             <label for="f-email">E-Mail-Adresse</label>
@@ -744,9 +744,9 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
           </div>
 
-          <button class="btn" type="submit" id="wl-knopf">Auf die Warteliste setzen</button>
+          <button class="btn" type="submit" id="wl-knopf">Kostenlos testen</button>
           <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
-          <p class="formblatt__unter">Sie bekommen eine <span class="nb">E-Mail</span> zur Bestätigung und eine, wenn es losgeht.</p>
+          <p class="formblatt__unter">Ohne Zahlungsdaten. Danach 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
           <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gilt die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
         </form>
 
@@ -764,8 +764,8 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 <main id="bestaetigt" hidden>
   <section class="dank" aria-labelledby="h-danke">
     <div class="rahmen">
-      <h1 id="h-danke" tabindex="-1">Sie stehen auf der Warteliste</h1>
-      <p>Vielen Dank. Wir melden uns, sobald Bieterpost für Ihr Gewerk und Ihr Bundesland startet.</p>
+      <h1 id="h-danke" tabindex="-1">Ihr Test hat begonnen</h1>
+      <p>Vielen Dank. Ihre erste <span class="nb">E-Mail</span> kommt morgens um 6&nbsp;Uhr, in der Regel am nächsten Tag. Sie enthält die Ausschreibungen für Ihr Gewerk und Ihr Bundesland, die am Vortag veröffentlicht wurden. An Tagen ohne passende Ausschreibung kommt keine <span class="nb">E-Mail</span>. Der Test läuft 7 Tage und endet von selbst.</p>
     </div>
   </section>
 
@@ -807,7 +807,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 </footer>
 
 <div class="leiste" id="leiste">
-  <a class="btn" href="#warteliste">Auf die Warteliste setzen</a>
+  <a class="btn" href="#testen">7 Tage kostenlos testen</a>
 </div>
 
 <script>
