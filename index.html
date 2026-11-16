@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin">
 <!--
   Product name: the literal string "Bieterpost" is a placeholder.
   It is always written as one unbroken word, so a global search-and-replace
@@ -641,7 +642,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Was passiert mit meinen Daten?</summary>
-          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, die Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der <span class="nb">E-Mail</span> anklicken, um die Auswahl zu verbessern. Sie können sich in jeder <span class="nb">E-Mail</span> abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, Firmenname und Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der <span class="nb">E-Mail</span> anklicken, um die Auswahl zu verbessern. Sie können sich in jeder <span class="nb">E-Mail</span> abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
         </details>
       </div>
     </div>
@@ -652,14 +653,14 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     <div class="rahmen g12">
       <div class="schluss__text">
         <h2 id="h-anmeldung">7 Tage kostenlos testen</h2>
-        <p>Tragen Sie Ihr Gewerk und Ihr Bundesland ein. Nach der Bestätigung bekommen Sie jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen.</p>
+        <p>Geben Sie Ihre <span class="nb">E-Mail-Adresse</span> ein, danach Ihr Gewerk und Ihr Bundesland. Nach der Bestätigung bekommen Sie jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen.</p>
       </div>
 
       <div class="formblatt" id="testen">
         <form id="wl-form" method="post" action="#testen" novalidate
               data-senden="Wird gesendet …"
               data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
-              data-doppelt="Diese Adresse ist schon eingetragen.">
+              data-doppelt="Diese Adresse ist schon eingetragen. Mit dem Link in unserer E-Mail können Sie Ihre Angaben ergänzen.">
           <h3>Bieterpost 7 Tage kostenlos testen</h3>
 
           <div class="feld">
@@ -667,6 +668,30 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             <input type="email" id="f-email" name="email" placeholder="name@ihr-betrieb.de" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-email-fehler">
             <p class="fehler" id="f-email-fehler" hidden>Bitte prüfen Sie die E-Mail-Adresse.</p>
           </div>
+
+          <div class="feld feld--haken">
+            <input type="checkbox" id="f-ok" name="einwilligung" required aria-describedby="f-ok-fehler">
+            <label for="f-ok">Ja, ich möchte Bieterpost testen und per <span class="nb">E-Mail</span> Ausschreibungen und Neuigkeiten zu Bieterpost bekommen.</label>
+            <p class="fehler" id="f-ok-fehler" hidden>Bitte bestätigen Sie, dass wir Ihnen schreiben dürfen.</p>
+          </div>
+
+          <div class="falle" aria-hidden="true">
+            <label for="f-web">Bitte leer lassen</label>
+            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn" type="submit" id="wl-knopf">7 Tage kostenlos testen</button>
+          <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
+          <p class="formblatt__unter">Ohne Zahlungsdaten. Danach 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
+          <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gilt die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+        </form>
+
+        <form id="pf-form" method="post" action="#testen" novalidate hidden
+              data-senden="Wird gespeichert …"
+              data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
+              data-unbekannt="Wir finden Ihre Anmeldung nicht. Bitte melden Sie sich oben neu an.">
+          <h3 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h3>
+          <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch zwei Angaben.</p>
 
           <div class="feld">
             <label for="f-gewerk">Ihr Gewerk</label>
@@ -717,8 +742,13 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
               <option>Schleswig-Holstein</option>
               <option>Thüringen</option>
             </select>
-            <p class="hilfe" id="f-land-hilfe">Wo Ihr Betrieb sitzt</p>
+            <p class="hilfe" id="f-land-hilfe">Wo Sie Aufträge suchen</p>
             <p class="fehler" id="f-land-fehler" hidden>Bitte wählen Sie Ihr Bundesland.</p>
+          </div>
+
+          <div class="feld">
+            <label for="f-firma">Firmenname (freiwillig)</label>
+            <input type="text" id="f-firma" name="firma" autocomplete="organization" maxlength="200">
           </div>
 
           <div class="feld">
@@ -733,26 +763,13 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             </select>
           </div>
 
-          <div class="feld feld--haken">
-            <input type="checkbox" id="f-ok" name="einwilligung" required aria-describedby="f-ok-fehler">
-            <label for="f-ok">Ja, ich möchte per <span class="nb">E-Mail</span> über den Start von Bieterpost informiert werden.</label>
-            <p class="fehler" id="f-ok-fehler" hidden>Bitte bestätigen Sie, dass wir Ihnen schreiben dürfen.</p>
-          </div>
-
-          <div class="falle" aria-hidden="true">
-            <label for="f-web">Bitte leer lassen</label>
-            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
-          </div>
-
-          <button class="btn" type="submit" id="wl-knopf">Kostenlos testen</button>
-          <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
-          <p class="formblatt__unter">Ohne Zahlungsdaten. Danach 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
-          <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gilt die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          <button class="btn" type="submit" id="pf-knopf">Angaben speichern</button>
+          <p class="meldung" id="pf-status" role="status" aria-live="polite"></p>
         </form>
 
         <div class="erfolg" id="wl-erfolg" role="status" aria-live="polite" hidden>
-          <h3 tabindex="-1">Bitte bestätigen Sie Ihre E-Mail-Adresse</h3>
-          <p>Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach.</p>
+          <h3 tabindex="-1" id="erfolg-titel">Danke, Ihre Angaben sind gespeichert</h3>
+          <p id="erfolg-text">Bitte bestätigen Sie jetzt Ihre <span class="nb">E-Mail-Adresse</span> mit dem Link in unserer <span class="nb">E-Mail</span>. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach. Danach kommt Ihre erste <span class="nb">E-Mail</span> mit Ausschreibungen morgens um 6&nbsp;Uhr.</p>
           <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
         </div>
       </div>
@@ -819,16 +836,25 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   // the page shows the success state locally so the flow can be clicked through.
   // Contract: launch-kit POST /public/lead-capture. 2xx = ok, anything else = error.
   // Signups land in segment "unbestaetigt"; a launch-kit flow sends the double-opt-in
-  // mail and moves the contact to "waitlist" after the confirmation click.
+  // mail and moves the contact to "waitlist" (= confirmed) after the confirmation click.
   // Local test switches (only while the endpoint is unset): ?sim=fehler, ?sim=doppelt
   var FORM_ENDPOINT = "https://auth.solytics.de/t/bieterpost/marketing/public/lead-capture";
   var SEGMENT = "unbestaetigt";
+  var PROFIL_ENDPOINT = "https://app.bieterpost.de/profil";
   // ----------------------------------------------------------------------
 
   var LIVE = FORM_ENDPOINT.indexOf("TODO") !== 0;
   var params = new URLSearchParams(location.search);
   var variante = document.documentElement.getAttribute("data-variante") || "a";
   var byId = function (id) { return document.getElementById(id); };
+  var TOKEN = /^[0-9a-f]{32}$/;
+
+  // 128 random bits: the only secret that links step 2 to the contact from step 1.
+  function neuerToken() {
+    var b = new Uint8Array(16);
+    crypto.getRandomValues(b);
+    return Array.prototype.map.call(b, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+  }
 
   function kampagne() {
     var u = {};
@@ -853,7 +879,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     var feld = function (name, wert) {
       if (wert) attribute[name] = String(wert).replace(/:\/\//g, " ").replace(/\.(?=\S)/g, ". ").slice(0, 200);
     };
-    ["gewerk", "gewerk_anderes", "bundesland", "betriebsgroesse", "variant"].forEach(function (n) { feld(n, daten[n]); });
+    ["profil_token", "variant"].forEach(function (n) { feld(n, daten[n]); });
     Object.keys(daten.utm).forEach(function (n) { feld(n, daten.utm[n]); });
     var abbruch = new AbortController();
     var uhr = setTimeout(function () { abbruch.abort(); }, 12000);
@@ -868,8 +894,140 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     }).catch(function () { clearTimeout(uhr); return "fehler"; });
   }
 
+  // ---- Step 2: trade and Bundesland go to bieterpost-app, keyed by the token from step 1.
+  // launch-kit cannot update attributes, so the profile lives in the app (bieterpost#10).
+  function profilSenden(daten) {
+    if (!LIVE) {
+      console.warn("FORM_ENDPOINT is not set. Not sent:", daten);
+      return new Promise(function (fertig) { setTimeout(function () { fertig("ok"); }, 600); });
+    }
+    var abbruch = new AbortController();
+    var uhr = setTimeout(function () { abbruch.abort(); }, 12000);
+    return fetch(PROFIL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(daten),
+      signal: abbruch.signal
+    }).then(function (antwort) {
+      clearTimeout(uhr);
+      // 409: already saved, e.g. a second click on the button.
+      return antwort.ok || antwort.status === 409 ? "ok" : antwort.status === 404 ? "unbekannt" : "fehler";
+    }).catch(function () { clearTimeout(uhr); return "fehler"; });
+  }
+
+  // 404 (no such signup) shows the thank-you page; when the app cannot be reached, ask
+  // step 2 anyway: saving then reports the error instead of losing the step silently.
+  function profilFehlt(token) {
+    var abbruch = new AbortController();
+    var uhr = setTimeout(function () { abbruch.abort(); }, 8000);
+    return fetch(PROFIL_ENDPOINT + "/status", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ p: token }),
+      signal: abbruch.signal
+    })
+      .then(function (antwort) {
+        clearTimeout(uhr);
+        if (antwort.status === 404) return { complete: true };
+        return antwort.ok ? antwort.json() : { complete: false };
+      })
+      .then(function (d) { return !d.complete; })
+      .catch(function () { clearTimeout(uhr); return true; });
+  }
+
+  // ---- Field checks shared by both steps ----------------------------------
+  var geprueft = {};
+  function pruefe(feld) {
+    var gut = feld.ok(feld.el);
+    byId(feld.el.id + "-fehler").hidden = gut;
+    if (gut) feld.el.removeAttribute("aria-invalid"); else feld.el.setAttribute("aria-invalid", "true");
+    return gut;
+  }
+  function beobachte(name, felder) {
+    felder.forEach(function (feld) {
+      var wieder = function () { if (geprueft[name]) pruefe(feld); };
+      feld.el.addEventListener("input", wieder);
+      feld.el.addEventListener("change", wieder);
+    });
+  }
+  function allesGut(name, felder) {
+    geprueft[name] = true;
+    var falsch = felder.filter(function (feld) { return !pruefe(feld); });
+    if (falsch.length) falsch[0].el.focus();
+    return !falsch.length;
+  }
+  function melder(id) {
+    return function (text, istFehler) {
+      var el = byId(id);
+      el.textContent = text || "";
+      el.classList.toggle("ist-fehler", !!istFehler);
+    };
+  }
+  function warte(knopf, text) {
+    var alt = knopf.textContent;
+    knopf.disabled = true;
+    knopf.textContent = text;
+    return function () { knopf.disabled = false; knopf.textContent = alt; };
+  }
+
+  // ---- Step 2 form ---------------------------------------------------------
+  var token = null;
+  var pfForm = byId("pf-form");
+  var pfFelder = [
+    { el: byId("f-gewerk"), ok: function (el) { return el.value !== ""; } },
+    { el: byId("f-land"), ok: function (el) { return el.value !== ""; } }
+  ];
+  var pfMelde = melder("pf-status");
+  var nachProfil = function () {};
+  var falle = false; // bot trap hit in step 1: step 2 pretends as well
+  beobachte("pf", pfFelder);
+
+  byId("f-gewerk").addEventListener("change", function () {
+    var anderes = this.value === "Anderes Gewerk";
+    byId("f-anderes-feld").hidden = !anderes;
+    if (!anderes) byId("f-anderes").value = "";
+  });
+
+  function zeigeProfil(t, hinweis) {
+    token = t;
+    byId("wl-form").hidden = true;
+    pfForm.hidden = false;
+    if (hinweis) byId("pf-hinweis").textContent = hinweis;
+    pfForm.querySelector("h3").focus();
+  }
+
+  pfForm.addEventListener("submit", function (ereignis) {
+    ereignis.preventDefault();
+    pfMelde("");
+    if (!allesGut("pf", pfFelder)) return;
+    if (falle) { nachProfil(); return; }
+    var fertig = warte(byId("pf-knopf"), pfForm.getAttribute("data-senden"));
+    profilSenden({
+      p: token,
+      gewerk: byId("f-gewerk").value,
+      gewerk_anderes: byId("f-anderes").value.trim(),
+      bundesland: byId("f-land").value,
+      firma: byId("f-firma").value.trim(),
+      groesse: byId("f-groesse").value
+    }).then(function (ergebnis) {
+      fertig();
+      if (ergebnis === "ok") nachProfil();
+      else if (ergebnis === "unbekannt") pfMelde(pfForm.getAttribute("data-unbekannt"), true);
+      else pfMelde(pfForm.getAttribute("data-fehler"), true);
+    });
+  });
+
+  function zeigeErfolg(titel, text) {
+    var erfolg = byId("wl-erfolg");
+    byId("wl-form").hidden = true;
+    pfForm.hidden = true;
+    if (titel) byId("erfolg-titel").textContent = titel;
+    if (text) byId("erfolg-text").textContent = text;
+    erfolg.hidden = false;
+    byId("wl-test").hidden = LIVE;
+    erfolg.querySelector("h3").focus();
+  }
+
   // ---- Confirmation view -------------------------------------------------
-  if (params.get("bestaetigt") === "1") {
+  function zeigeBestaetigt() {
     byId("seite").hidden = true;
     byId("bestaetigt").hidden = false;
     byId("h-danke").focus({ preventScroll: true });
@@ -895,82 +1053,57 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       var nein = function () { status.textContent = knopf.getAttribute("data-manuell"); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(adresse).then(ok, nein); else nein();
     });
+  }
+
+  if (params.get("bestaetigt") === "1") {
+    // A contact who skipped step 2 finishes it here; everybody else sees the thank-you page.
+    // The token comes in the #fragment, which browsers never send to a server log;
+    // drop it from the address bar right away.
+    var p = new URLSearchParams(location.hash.slice(1)).get("p") || "";
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    if (!TOKEN.test(p) || !LIVE) { zeigeBestaetigt(); return; }
+    profilFehlt(p).then(function (fehlt) {
+      if (!fehlt) { zeigeBestaetigt(); return; }
+      nachProfil = function () {
+        zeigeErfolg(byId("h-danke").textContent, byId("bestaetigt").querySelector(".dank p").textContent);
+      };
+      document.documentElement.classList.remove("ist-bestaetigt"); // set in <head> to hide #seite
+      zeigeProfil(p, "Ihre Adresse ist bestätigt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch zwei Angaben.");
+      byId("testen").scrollIntoView();
+    });
     return;
   }
 
-  // ---- Waitlist form -----------------------------------------------------
+  // ---- Step 1: e-mail only, so the lead is saved before anything else is asked.
   var form = byId("wl-form");
-  var knopf = byId("wl-knopf");
-  var status = byId("wl-status");
-  var knopfText = knopf.textContent;
-  var geprueft = false;
-
-  var pflicht = [
+  var wlFelder = [
     { el: byId("f-email"), ok: function (el) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()); } },
-    { el: byId("f-gewerk"), ok: function (el) { return el.value !== ""; } },
-    { el: byId("f-land"), ok: function (el) { return el.value !== ""; } },
     { el: byId("f-ok"), ok: function (el) { return el.checked; } }
   ];
-
-  function pruefe(feld) {
-    var gut = feld.ok(feld.el);
-    byId(feld.el.id + "-fehler").hidden = gut;
-    if (gut) feld.el.removeAttribute("aria-invalid"); else feld.el.setAttribute("aria-invalid", "true");
-    return gut;
-  }
-
-  pflicht.forEach(function (feld) {
-    var wieder = function () { if (geprueft) pruefe(feld); };
-    feld.el.addEventListener("input", wieder);
-    feld.el.addEventListener("change", wieder);
-  });
-
-  byId("f-gewerk").addEventListener("change", function () {
-    var anderes = this.value === "Anderes Gewerk";
-    byId("f-anderes-feld").hidden = !anderes;
-    if (!anderes) byId("f-anderes").value = "";
-  });
-
-  function melde(text, istFehler) {
-    status.textContent = text || "";
-    status.classList.toggle("ist-fehler", !!istFehler);
-  }
+  var wlMelde = melder("wl-status");
+  beobachte("wl", wlFelder);
+  nachProfil = function () { zeigeErfolg(); };
 
   form.addEventListener("submit", function (ereignis) {
     ereignis.preventDefault();
-    geprueft = true;
-    melde("");
-    var falsch = pflicht.filter(function (feld) { return !pruefe(feld); });
-    if (falsch.length) { falsch[0].el.focus(); return; }
+    wlMelde("");
+    if (!allesGut("wl", wlFelder)) return;
+    var neu = neuerToken();
+    if (byId("f-web").value) { falle = true; zeigeProfil(neu); return; } // bot trap: pretend, send nothing
 
-    if (byId("f-web").value) { zeigeErfolg(); return; } // bot trap: pretend, send nothing
-
-    knopf.disabled = true;
-    knopf.textContent = form.getAttribute("data-senden");
+    var fertig = warte(byId("wl-knopf"), form.getAttribute("data-senden"));
     senden({
-      type: "waitlist",
+      type: "signup",
       email: byId("f-email").value.trim(),
-      gewerk: byId("f-gewerk").value,
-      gewerk_anderes: byId("f-anderes").value.trim() || null,
-      bundesland: byId("f-land").value,
-      betriebsgroesse: byId("f-groesse").value || null,
+      profil_token: neu,
       einwilligung: true
     }).then(function (ergebnis) {
-      knopf.disabled = false;
-      knopf.textContent = knopfText;
-      if (ergebnis === "ok") zeigeErfolg();
-      else if (ergebnis === "doppelt") melde(form.getAttribute("data-doppelt"), false);
-      else melde(form.getAttribute("data-fehler"), true);
+      fertig();
+      if (ergebnis === "ok") zeigeProfil(neu);
+      else if (ergebnis === "doppelt") wlMelde(form.getAttribute("data-doppelt"), false);
+      else wlMelde(form.getAttribute("data-fehler"), true);
     });
   });
-
-  function zeigeErfolg() {
-    var erfolg = byId("wl-erfolg");
-    form.hidden = true;
-    erfolg.hidden = false;
-    byId("wl-test").hidden = LIVE;
-    erfolg.querySelector("h3").focus();
-  }
 
   // ---- Calls that follow the reader: bar on phones, header button on desktop.
   // Both appear after the hero button has scrolled out; the bar leaves again at the form. ----
