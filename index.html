@@ -642,7 +642,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Was passiert mit meinen Daten?</summary>
-          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland und, wenn Sie es angeben, Firmenname und Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der <span class="nb">E-Mail</span> anklicken, um die Auswahl zu verbessern. Sie können sich in jeder <span class="nb">E-Mail</span> abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          <p>Wir speichern Ihre <span class="nb">E-Mail-Adresse</span>, Ihr Gewerk, Ihr Bundesland, Firmenname und Postleitzahl und, wenn Sie es angeben, die Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der <span class="nb">E-Mail</span> anklicken, um die Auswahl zu verbessern. Sie können sich in jeder <span class="nb">E-Mail</span> abmelden. Details stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
         </details>
       </div>
     </div>
@@ -691,7 +691,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
               data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
               data-unbekannt="Wir finden Ihre Anmeldung nicht. Bitte melden Sie sich oben neu an.">
           <h3 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h3>
-          <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch zwei Angaben.</p>
+          <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch ein paar Angaben zu Ihrem Betrieb.</p>
 
           <div class="feld">
             <label for="f-gewerk">Ihr Gewerk</label>
@@ -747,8 +747,15 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
           </div>
 
           <div class="feld">
-            <label for="f-firma">Firmenname (freiwillig)</label>
-            <input type="text" id="f-firma" name="firma" autocomplete="organization" maxlength="200">
+            <label for="f-firma">Firmenname</label>
+            <input type="text" id="f-firma" name="firma" autocomplete="organization" maxlength="200" required aria-describedby="f-firma-fehler">
+            <p class="fehler" id="f-firma-fehler" hidden>Bitte geben Sie den Namen Ihres Betriebs an.</p>
+          </div>
+
+          <div class="feld">
+            <label for="f-plz">Postleitzahl Ihres Betriebs</label>
+            <input type="text" id="f-plz" name="plz" autocomplete="postal-code" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" required aria-describedby="f-plz-fehler">
+            <p class="fehler" id="f-plz-fehler" hidden>Bitte geben Sie eine fünfstellige Postleitzahl an.</p>
           </div>
 
           <div class="feld">
@@ -973,7 +980,9 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   var pfForm = byId("pf-form");
   var pfFelder = [
     { el: byId("f-gewerk"), ok: function (el) { return el.value !== ""; } },
-    { el: byId("f-land"), ok: function (el) { return el.value !== ""; } }
+    { el: byId("f-land"), ok: function (el) { return el.value !== ""; } },
+    { el: byId("f-firma"), ok: function (el) { return el.value.trim() !== ""; } },
+    { el: byId("f-plz"), ok: function (el) { return /^[0-9]{5}$/.test(el.value.trim()); } }
   ];
   var pfMelde = melder("pf-status");
   var nachProfil = function () {};
@@ -1006,6 +1015,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       gewerk_anderes: byId("f-anderes").value.trim(),
       bundesland: byId("f-land").value,
       firma: byId("f-firma").value.trim(),
+      plz: byId("f-plz").value.trim(),
       groesse: byId("f-groesse").value
     }).then(function (ergebnis) {
       fertig();
@@ -1068,7 +1078,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         zeigeErfolg(byId("h-danke").textContent, byId("bestaetigt").querySelector(".dank p").textContent);
       };
       document.documentElement.classList.remove("ist-bestaetigt"); // set in <head> to hide #seite
-      zeigeProfil(p, "Ihre Adresse ist bestätigt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch zwei Angaben.");
+      zeigeProfil(p, "Ihre Adresse ist bestätigt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch ein paar Angaben zu Ihrem Betrieb.");
       byId("testen").scrollIntoView();
     });
     return;
