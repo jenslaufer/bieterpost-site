@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#111110">
+<title>AGB · Bieterpost</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  /* "Baustelle", same tokens as index.html. Fonts from fonts/, no third-party requests. */
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Barlow"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Barlow"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+  :root { --gelb: #FFC400; --gelb-tief: #E3AE00; --schwarz: #111110; --weiss: #FFFFFF; --beton: #ECEAE5; --aus: cubic-bezier(0.2, 0.8, 0.2, 1); --fokus: var(--schwarz);
+    --f-kopf: "Barlow Condensed", "DIN Condensed", "Arial Narrow", "Roboto Condensed", sans-serif; --f-text: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--weiss); color: var(--schwarz); font: 400 1.0625rem/1.55 var(--f-text); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+  .rahmen { width: 100%; max-width: 46rem; margin-inline: auto; padding-inline: 16px; }
+  header { background: var(--schwarz); color: var(--weiss); --fokus: var(--gelb); }
+  header .rahmen { display: flex; align-items: center; min-height: 48px; }
+  .marke { display: inline-flex; align-items: center; gap: 8px; font: 700 1.375rem/1 var(--f-kopf); letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+  .marke::before { content: ""; width: 16px; height: 16px; background: linear-gradient(var(--gelb), var(--gelb)) 0 0 / 16px 10px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 3px 100% / 2px 6px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 11px 100% / 2px 6px no-repeat; }
+  .marke:hover { background: none; color: var(--gelb); }
+  .marke:active { background: none; color: var(--gelb-tief); }
+  main { padding-block: 48px 96px; }
+  h1 { margin: 0 0 24px; font: 700 clamp(2.125rem, 2.6vw + 1.5rem, 3.5rem)/1.05 var(--f-kopf); letter-spacing: -0.01em; }
+  p { margin: 0; max-width: 62ch; }
+  .todo { margin: 0 0 32px; padding: 24px; background: var(--beton); border: 3px dashed var(--schwarz); font-size: 1rem; line-height: 1.5; }
+  .todo p + p { margin-top: 16px; }
+  .todo strong { font-weight: 600; }
+  a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: background-color 150ms var(--aus), color 150ms var(--aus); }
+  a:hover { background: var(--gelb); color: var(--schwarz); }
+  a:active { background: var(--gelb-tief); color: var(--schwarz); }
+  :focus-visible { outline: 3px solid var(--fokus); outline-offset: 3px; }
+  @media (min-width: 700px) { .rahmen { padding-inline: 32px; } main { padding-block: 64px 128px; } }
+  @media (min-width: 900px) { header .rahmen { min-height: 64px; } .marke { font-size: 1.5rem; } }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; } }
+  h2 { font: 700 1.5rem/1.2 var(--f-kopf); line-height: 1.3; margin: 40px 0 8px; }
+  main p + p { margin-top: 12px; }
+  .zurueck { margin-top: 48px; }
+</style>
+</head>
+<body>
+<header><div class="rahmen"><a class="marke" href="./" aria-label="Bieterpost, Startseite">Bieterpost</a></div></header>
+<main class="rahmen">
+  <h1>Allgemeine Geschäftsbedingungen für Bieterpost</h1>
+  <p>Stand: November 2026</p>
+  <h2>1. Anbieter und Geltungsbereich</h2>
+  <p>(1) Bieterpost ist ein Dienst der Solytics GmbH, Hörsteiner Str. 20a, 63791 Karlstein a. Main, eingetragen beim Amtsgericht Aschaffenburg unter HRB 16879 („wir“).</p>
+  <p>(2) Diese Bedingungen gelten für alle Verträge über Bieterpost. Abweichende Bedingungen des Kunden gelten nur, wenn wir ihnen schriftlich zustimmen.</p>
+  <h2>2. Nur für Unternehmen</h2>
+  <p>(1) Bieterpost richtet sich ausschließlich an Unternehmer im Sinne von § 14 BGB, also an Betriebe, Selbstständige und öffentliche Einrichtungen, die Bieterpost für ihre gewerbliche oder selbstständige berufliche Tätigkeit nutzen.</p>
+  <p>(2) Mit der Anmeldung bestätigt der Kunde, dass er als Unternehmer handelt. Verträge mit Verbrauchern schließen wir nicht. Ein Widerrufsrecht für Verbraucher besteht daher nicht.</p>
+  <h2>3. Leistung</h2>
+  <p>(1) Bieterpost wertet täglich die im Bekanntmachungsservice des Bundes (oeffentlichevergabe.de) veröffentlichten Ausschreibungen aus. Der Kunde erhält an Tagen mit passenden Treffern morgens eine E-Mail mit den Ausschreibungen, die zu dem von ihm gewählten Gewerk und Bundesland passen. Jede Ausschreibung enthält eine kurze Zusammenfassung, den Auftraggeber, den Ort, die Frist und einen Link zur Bekanntmachung.</p>
+  <p>(2) Die Zuordnung zu Gewerken und die Zusammenfassungen erstellt eine KI. Sie können unvollständig oder fehlerhaft sein. Maßgeblich ist allein die Bekanntmachung der Vergabestelle. Der Kunde prüft sie vor einem Angebot selbst.</p>
+  <p>(3) Wir schulden keine Vollständigkeit. Ausschreibungen, die nicht im Bekanntmachungsservice des Bundes erscheinen, erfasst Bieterpost nicht. Bieterpost gibt keine Angebote ab und kalkuliert nicht.</p>
+  <p>(4) Wir dürfen den Dienst weiterentwickeln, solange der Kern nach Absatz 1 erhalten bleibt.</p>
+  <h2>4. Kostenloser Test</h2>
+  <p>(1) Nach der Anmeldung und der Bestätigung der E-Mail-Adresse kann der Kunde Bieterpost 7 Tage kostenlos testen. Der Test beginnt mit dem ersten Versandlauf nach der Bestätigung.</p>
+  <p>(2) Der Test endet nach 7 Tagen von selbst. Er geht nicht automatisch in ein bezahltes Abo über. Für den Test fallen keine Kosten an.</p>
+  <p>(3) Jedes Unternehmen kann den Test einmal nutzen. Wir können einen weiteren Test ablehnen.</p>
+  <h2>5. Abo, Preis und Zahlung</h2>
+  <p>(1) Das Abo kommt zustande, wenn der Kunde über den Link in unserer E-Mail den Bezahlvorgang bei unserem Zahlungsdienstleister Stripe abschließt.</p>
+  <p>(2) Das Abo kostet 79&nbsp;€ pro Monat zuzüglich der gesetzlichen Umsatzsteuer. Es wird monatlich im Voraus abgerechnet, beginnend mit dem Tag des Abschlusses. Die Rechnung erhält der Kunde per E-Mail.</p>
+  <p>(3) Gerät der Kunde mit einer Zahlung in Verzug, dürfen wir den Versand bis zum Ausgleich aussetzen.</p>
+  <p>(4) Preisänderungen teilen wir mindestens 4 Wochen vorher per E-Mail mit. Der Kunde kann dann zum Zeitpunkt der Änderung kündigen.</p>
+  <h2>6. Laufzeit und Kündigung</h2>
+  <p>(1) Das Abo läuft jeweils einen Monat und verlängert sich um einen weiteren Monat, wenn es nicht gekündigt wird.</p>
+  <p>(2) Der Kunde kann jederzeit zum Ende des laufenden Monats kündigen, über das Kundenportal (Link in jeder E-Mail) oder per E-Mail an uns. Bereits gezahlte Beträge erstatten wir nicht anteilig.</p>
+  <p>(3) Das Recht zur außerordentlichen Kündigung bleibt unberührt.</p>
+  <h2>7. Pflichten des Kunden</h2>
+  <p>Der Kunde macht bei der Anmeldung wahre Angaben zu seinem Betrieb. Er gibt die E-Mails nicht gewerblich an Dritte weiter.</p>
+  <h2>8. Haftung</h2>
+  <p>(1) Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit, bei Verletzung von Leben, Körper oder Gesundheit und nach dem Produkthaftungsgesetz.</p>
+  <p>(2) Bei leichter Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen Vertragspflicht und begrenzt auf den vorhersehbaren, vertragstypischen Schaden, höchstens auf die Entgelte der letzten 12 Monate.</p>
+  <p>(3) Wir haften insbesondere nicht dafür, dass der Kunde einen Auftrag erhält, und nicht für entgangene Aufträge wegen einer nicht gemeldeten, falsch zugeordneten oder falsch zusammengefassten Ausschreibung, soweit Absatz 1 nicht greift.</p>
+  <h2>9. Datenschutz</h2>
+  <p>Wie wir Daten verarbeiten, steht in der <a href="datenschutz.html">Datenschutzerklärung</a> auf bieterpost.de.</p>
+  <h2>10. Schlussbestimmungen</h2>
+  <p>(1) Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.</p>
+  <p>(2) Gerichtsstand ist Aschaffenburg, soweit der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist.</p>
+  <p>(3) Sollte eine Bestimmung unwirksam sein, bleibt der Rest wirksam.</p>
+  <p class="zurueck"><a href="./">Zurück zur Startseite</a></p>
+</main>
+</body>
+</html>
