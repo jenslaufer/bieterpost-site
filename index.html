@@ -176,7 +176,7 @@ a:active { background: var(--gelb-tief); color: var(--schwarz); }
   .kopf { position: sticky; top: 0; z-index: 20; }
   .kopf .marke { font-size: 1.5rem; }
   .kopf__cta { display: inline-flex; min-height: 40px; padding-inline: var(--s-16); font-size: 1.125rem; }
-  /* Header button only while the hero button is out of view. */
+  /* Header button only while the hero form is out of view. */
   .js .kopf__cta { opacity: 0; visibility: hidden; transition: opacity 200ms var(--aus), visibility 0s linear 200ms, background-color 150ms var(--aus), border-color 150ms var(--aus); }
   .js .mit-knopf .kopf__cta { opacity: 1; visibility: visible; transition: opacity 200ms var(--aus), visibility 0s, background-color 150ms var(--aus), border-color 150ms var(--aus); }
 }
@@ -186,21 +186,16 @@ a:active { background: var(--gelb-tief); color: var(--schwarz); }
 .vorzeile { font: 600 1rem/1.25 var(--f-kopf); letter-spacing: 0.01em; margin-bottom: var(--s-16); max-width: none; hyphens: manual; }
 h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 .h1__zwei { display: block; margin-top: var(--s-16); font-weight: 500; font-size: var(--t-h1-2); line-height: 1.15; letter-spacing: 0; }
-.held__cta { margin-top: var(--s-24); }
-.held__cta .btn { width: 100%; }
-.held__cta p { margin-top: var(--s-8); font-size: var(--t-klein); line-height: 1.4; }
+.schluss__knopf { margin-top: var(--s-24); }
 .held__sub { margin-top: var(--s-32); padding-top: var(--s-16); border-top: 3px solid var(--schwarz); }
-@media (min-width: 560px) { .held__cta .btn { width: auto; } }
 @media (min-width: 900px) {
   .held { padding-block: var(--s-64) var(--s-96); }
   .held__in { row-gap: 0; align-items: start; }
   .vorzeile { grid-column: 1 / -1; font-size: 1.25rem; margin-bottom: var(--s-32); }
   h1 { grid-column: 1 / span 11; }
   .h1__zwei { margin-top: var(--s-24); }
-  .held__cta { grid-column: 1 / span 5; margin-top: var(--s-64); }
-  .held__cta .btn { min-height: 64px; padding-inline: var(--s-40); font-size: 1.625rem; }
-  .held__cta p { font-size: 1rem; }
-  .held__sub { grid-column: 7 / span 6; margin-top: var(--s-64); font-size: 1.25rem; line-height: 1.5; }
+  .held__sub { grid-column: 1 / span 5; grid-row: 3; margin-top: var(--s-48); font-size: 1.25rem; line-height: 1.5; }
+  .held .held__form { grid-column: 7 / span 6; grid-row: 3; margin-top: var(--s-48); scroll-margin-top: var(--s-96); }
 }
 
 /* Fact strip: figures in white. Yellow stays with the hero above. */
@@ -333,12 +328,12 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   .faq__liste { grid-column: 6 / span 7; }
 }
 
-/* ---------- 3.8 Final CTA and 3.9 form. Spacing on the 4 px form grid. ---------- */
+/* ---------- 3.8 Final CTA, and the form (in the hero). Spacing on the 4 px form grid. ---------- */
 .schluss__text p { margin-top: var(--s-16); font-size: var(--t-lead); line-height: 1.45; }
 .formblatt { margin-top: var(--s-32); background: var(--weiss); border: 3px solid var(--schwarz); padding: var(--s-32) var(--s-20); scroll-margin-top: var(--s-16); }
 .formblatt a:hover { background: var(--gelb); color: var(--schwarz); }
-.formblatt h3 { margin-bottom: var(--s-24); }
-.formblatt h3:focus { outline: none; }
+.formblatt h2 { font-size: var(--t-h3); line-height: 1.15; letter-spacing: 0; margin-bottom: var(--s-24); }
+.formblatt h2:focus { outline: none; }
 .feld { margin-bottom: var(--s-20); }
 .feld label { display: block; margin-bottom: var(--s-8); font: 600 1rem/1.3 var(--f-text); }
 .feld input:not([type="checkbox"]), .feld select {
@@ -367,12 +362,11 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 .meldung.ist-fehler { border-left-color: var(--rot); color: var(--rot); }
 .formblatt__unter { margin-top: var(--s-16); font-size: 1rem; line-height: 1.45; }
 .formblatt__recht { margin-top: var(--s-8); font-size: var(--t-klein); line-height: 1.45; color: var(--text-2); }
-.erfolg h3 { margin-bottom: var(--s-16); }
+.erfolg h2 { margin-bottom: var(--s-16); }
 .test { margin-top: var(--s-24); padding: var(--s-16); border: 2px dashed var(--text-2); font-size: var(--t-klein); line-height: 1.5; color: var(--text-2); }
 @media (min-width: 640px) { .formblatt { padding: var(--s-48) var(--s-40); } }
 @media (min-width: 900px) {
-  .schluss__text { grid-column: 1 / span 5; position: sticky; top: var(--s-96); align-self: start; }
-  .formblatt { grid-column: 7 / span 6; margin-top: 0; scroll-margin-top: var(--s-96); }
+  .schluss__text { grid-column: 1 / span 8; }
 }
 
 /* ---------- Footer ---------- */
@@ -393,6 +387,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 /* ---------- 3.10 Page after the confirmation click (?bestaetigt=1) ---------- */
 #bestaetigt { display: none; }
 .ist-bestaetigt #seite, .ist-bestaetigt .leiste, .ist-bestaetigt .kopf__cta { display: none; }
+.ist-angemeldet .leiste, .ist-angemeldet .kopf__cta, .ist-angemeldet .schluss__knopf { display: none; }
 .ist-bestaetigt #bestaetigt, .ist-bestaetigt #bestaetigt[hidden] { display: block !important; }
 .ist-bestaetigt .fuss { padding-bottom: var(--s-32); }
 .dank { background: var(--gelb); padding-block: var(--s-48) var(--s-64); }
@@ -464,9 +459,129 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             }
           })();
         </script>
-        <div class="held__cta">
-          <a class="btn" id="held-knopf" href="#testen">7 Tage kostenlos testen</a>
-          <p>Nur für Unternehmen. Ohne Zahlungsdaten, der Test endet von selbst. Wenn Sie danach abonnieren: 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
+        <div class="formblatt held__form" id="testen">
+          <form id="wl-form" method="post" action="#testen" novalidate
+                data-senden="Wird gesendet …"
+                data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
+                data-doppelt="Diese Adresse ist schon eingetragen. Mit dem Link in unserer E-Mail können Sie Ihre Angaben ergänzen.">
+            <h2>Bieterpost 7 Tage kostenlos testen</h2>
+
+            <div class="feld">
+              <label for="f-email">E-Mail-Adresse</label>
+              <input type="email" id="f-email" name="email" placeholder="name@ihr-betrieb.de" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-email-fehler">
+              <p class="fehler" id="f-email-fehler" hidden>Bitte prüfen Sie die E-Mail-Adresse.</p>
+            </div>
+
+            <div class="feld feld--haken">
+              <input type="checkbox" id="f-ok" name="einwilligung" required aria-describedby="f-ok-fehler">
+              <label for="f-ok">Ja, ich möchte Bieterpost testen und per <span class="nb">E-Mail</span> Ausschreibungen und Neuigkeiten zu Bieterpost bekommen.</label>
+              <p class="fehler" id="f-ok-fehler" hidden>Bitte bestätigen Sie, dass wir Ihnen schreiben dürfen.</p>
+            </div>
+
+            <div class="falle" aria-hidden="true">
+              <label for="f-web">Bitte leer lassen</label>
+              <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn" type="submit" id="wl-knopf">7 Tage kostenlos testen</button>
+            <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
+            <p class="formblatt__unter">Nur für Unternehmen. Ohne Zahlungsdaten. Wenn Sie danach abonnieren: 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
+            <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gelten die <a href="agb.html">AGB</a> und die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          </form>
+
+          <form id="pf-form" method="post" action="#testen" novalidate hidden
+                data-senden="Wird gespeichert …"
+                data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
+                data-unbekannt="Wir finden Ihre Anmeldung nicht. Bitte melden Sie sich oben neu an.">
+            <h2 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h2>
+            <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch ein paar Angaben zu Ihrem Betrieb.</p>
+
+            <div class="feld">
+              <label for="f-gewerk">Ihr Gewerk</label>
+              <select id="f-gewerk" name="gewerk" required aria-describedby="f-gewerk-fehler">
+                <option value="">Bitte wählen</option>
+                <option>Elektro</option>
+                <option>Heizung, Lüftung, Sanitär</option>
+                <option>Maler und Lackierer</option>
+                <option>Tischler / Schreiner</option>
+                <option>Dachdecker, Zimmerer, Klempner</option>
+                <option>Trockenbau, Putz, Stuck</option>
+                <option>Fliesen, Estrich, Bodenbelag</option>
+                <option>Maurer, Beton, Rohbau</option>
+                <option>Straßen- und Tiefbau</option>
+                <option>Garten- und Landschaftsbau</option>
+                <option>Metallbau</option>
+                <option>Gerüstbau</option>
+                <option>Abbruch und Rückbau</option>
+                <option>Gebäudereinigung</option>
+                <option>Anderes Gewerk</option>
+              </select>
+              <p class="fehler" id="f-gewerk-fehler" hidden>Bitte wählen Sie Ihr Gewerk.</p>
+            </div>
+
+            <div class="feld" id="f-anderes-feld" hidden>
+              <label for="f-anderes">Welches?</label>
+              <input type="text" id="f-anderes" name="gewerk_anderes" autocomplete="off" maxlength="80">
+            </div>
+
+            <div class="feld">
+              <label for="f-land">Bundesland</label>
+              <select id="f-land" name="bundesland" required aria-describedby="f-land-hilfe f-land-fehler">
+                <option value="">Bitte wählen</option>
+                <option>Baden-Württemberg</option>
+                <option>Bayern</option>
+                <option>Berlin</option>
+                <option>Brandenburg</option>
+                <option>Bremen</option>
+                <option>Hamburg</option>
+                <option>Hessen</option>
+                <option>Mecklenburg-Vorpommern</option>
+                <option>Niedersachsen</option>
+                <option>Nordrhein-Westfalen</option>
+                <option>Rheinland-Pfalz</option>
+                <option>Saarland</option>
+                <option>Sachsen</option>
+                <option>Sachsen-Anhalt</option>
+                <option>Schleswig-Holstein</option>
+                <option>Thüringen</option>
+              </select>
+              <p class="hilfe" id="f-land-hilfe">Wo Sie Aufträge suchen</p>
+              <p class="fehler" id="f-land-fehler" hidden>Bitte wählen Sie Ihr Bundesland.</p>
+            </div>
+
+            <div class="feld">
+              <label for="f-firma">Firmenname</label>
+              <input type="text" id="f-firma" name="firma" autocomplete="organization" maxlength="200" required aria-describedby="f-firma-fehler">
+              <p class="fehler" id="f-firma-fehler" hidden>Bitte geben Sie den Namen Ihres Betriebs an.</p>
+            </div>
+
+            <div class="feld">
+              <label for="f-plz">Postleitzahl Ihres Betriebs</label>
+              <input type="text" id="f-plz" name="plz" autocomplete="postal-code" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" required aria-describedby="f-plz-fehler">
+              <p class="fehler" id="f-plz-fehler" hidden>Bitte geben Sie eine fünfstellige Postleitzahl an.</p>
+            </div>
+
+            <div class="feld">
+              <label for="f-groesse">Betriebsgröße (freiwillig)</label>
+              <select id="f-groesse" name="betriebsgroesse">
+                <option value="">Bitte wählen</option>
+                <option value="1-4">1–4 Beschäftigte</option>
+                <option value="5-9">5–9 Beschäftigte</option>
+                <option value="10-19">10–19 Beschäftigte</option>
+                <option value="20-49">20–49 Beschäftigte</option>
+                <option value="50+">50 und mehr Beschäftigte</option>
+              </select>
+            </div>
+
+            <button class="btn" type="submit" id="pf-knopf">Angaben speichern</button>
+            <p class="meldung" id="pf-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="erfolg" id="wl-erfolg" role="status" aria-live="polite" hidden>
+            <h2 tabindex="-1" id="erfolg-titel">Danke, Ihre Angaben sind gespeichert</h2>
+            <p id="erfolg-text">Bitte bestätigen Sie jetzt Ihre <span class="nb">E-Mail-Adresse</span> mit dem Link in unserer <span class="nb">E-Mail</span>. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach. Danach kommt Ihre erste <span class="nb">E-Mail</span> mit Ausschreibungen morgens um 6&nbsp;Uhr.</p>
+            <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
+          </div>
         </div>
         <p class="held__sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
       </div>
@@ -652,137 +767,13 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     </div>
   </section>
 
-  <!-- 3.8 Final CTA + 3.9 Form + 3.10 Success -->
+  <!-- 3.8 Final CTA: links up to the form in the hero -->
   <section class="abschnitt abschnitt--gelb schluss" id="anmeldung" aria-labelledby="h-anmeldung">
     <div class="rahmen g12">
       <div class="schluss__text">
         <h2 id="h-anmeldung">7 Tage kostenlos testen</h2>
         <p>Geben Sie Ihre <span class="nb">E-Mail-Adresse</span> ein, danach Ihr Gewerk und Ihr Bundesland. Nach der Bestätigung bekommen Sie jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen.</p>
-      </div>
-
-      <div class="formblatt" id="testen">
-        <form id="wl-form" method="post" action="#testen" novalidate
-              data-senden="Wird gesendet …"
-              data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
-              data-doppelt="Diese Adresse ist schon eingetragen. Mit dem Link in unserer E-Mail können Sie Ihre Angaben ergänzen.">
-          <h3>Bieterpost 7 Tage kostenlos testen</h3>
-
-          <div class="feld">
-            <label for="f-email">E-Mail-Adresse</label>
-            <input type="email" id="f-email" name="email" placeholder="name@ihr-betrieb.de" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-email-fehler">
-            <p class="fehler" id="f-email-fehler" hidden>Bitte prüfen Sie die E-Mail-Adresse.</p>
-          </div>
-
-          <div class="feld feld--haken">
-            <input type="checkbox" id="f-ok" name="einwilligung" required aria-describedby="f-ok-fehler">
-            <label for="f-ok">Ja, ich möchte Bieterpost testen und per <span class="nb">E-Mail</span> Ausschreibungen und Neuigkeiten zu Bieterpost bekommen.</label>
-            <p class="fehler" id="f-ok-fehler" hidden>Bitte bestätigen Sie, dass wir Ihnen schreiben dürfen.</p>
-          </div>
-
-          <div class="falle" aria-hidden="true">
-            <label for="f-web">Bitte leer lassen</label>
-            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
-          </div>
-
-          <button class="btn" type="submit" id="wl-knopf">7 Tage kostenlos testen</button>
-          <p class="meldung" id="wl-status" role="status" aria-live="polite"></p>
-          <p class="formblatt__unter">Nur für Unternehmen. Ohne Zahlungsdaten. Wenn Sie danach abonnieren: 79&nbsp;€ im Monat zzgl. MwSt., monatlich kündbar.</p>
-          <p class="formblatt__recht">Wir schreiben Ihnen nur zu Bieterpost. Sie können sich jederzeit abmelden. Es gelten die <a href="agb.html">AGB</a> und die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
-        </form>
-
-        <form id="pf-form" method="post" action="#testen" novalidate hidden
-              data-senden="Wird gespeichert …"
-              data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
-              data-unbekannt="Wir finden Ihre Anmeldung nicht. Bitte melden Sie sich oben neu an.">
-          <h3 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h3>
-          <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch ein paar Angaben zu Ihrem Betrieb.</p>
-
-          <div class="feld">
-            <label for="f-gewerk">Ihr Gewerk</label>
-            <select id="f-gewerk" name="gewerk" required aria-describedby="f-gewerk-fehler">
-              <option value="">Bitte wählen</option>
-              <option>Elektro</option>
-              <option>Heizung, Lüftung, Sanitär</option>
-              <option>Maler und Lackierer</option>
-              <option>Tischler / Schreiner</option>
-              <option>Dachdecker, Zimmerer, Klempner</option>
-              <option>Trockenbau, Putz, Stuck</option>
-              <option>Fliesen, Estrich, Bodenbelag</option>
-              <option>Maurer, Beton, Rohbau</option>
-              <option>Straßen- und Tiefbau</option>
-              <option>Garten- und Landschaftsbau</option>
-              <option>Metallbau</option>
-              <option>Gerüstbau</option>
-              <option>Abbruch und Rückbau</option>
-              <option>Gebäudereinigung</option>
-              <option>Anderes Gewerk</option>
-            </select>
-            <p class="fehler" id="f-gewerk-fehler" hidden>Bitte wählen Sie Ihr Gewerk.</p>
-          </div>
-
-          <div class="feld" id="f-anderes-feld" hidden>
-            <label for="f-anderes">Welches?</label>
-            <input type="text" id="f-anderes" name="gewerk_anderes" autocomplete="off" maxlength="80">
-          </div>
-
-          <div class="feld">
-            <label for="f-land">Bundesland</label>
-            <select id="f-land" name="bundesland" required aria-describedby="f-land-hilfe f-land-fehler">
-              <option value="">Bitte wählen</option>
-              <option>Baden-Württemberg</option>
-              <option>Bayern</option>
-              <option>Berlin</option>
-              <option>Brandenburg</option>
-              <option>Bremen</option>
-              <option>Hamburg</option>
-              <option>Hessen</option>
-              <option>Mecklenburg-Vorpommern</option>
-              <option>Niedersachsen</option>
-              <option>Nordrhein-Westfalen</option>
-              <option>Rheinland-Pfalz</option>
-              <option>Saarland</option>
-              <option>Sachsen</option>
-              <option>Sachsen-Anhalt</option>
-              <option>Schleswig-Holstein</option>
-              <option>Thüringen</option>
-            </select>
-            <p class="hilfe" id="f-land-hilfe">Wo Sie Aufträge suchen</p>
-            <p class="fehler" id="f-land-fehler" hidden>Bitte wählen Sie Ihr Bundesland.</p>
-          </div>
-
-          <div class="feld">
-            <label for="f-firma">Firmenname</label>
-            <input type="text" id="f-firma" name="firma" autocomplete="organization" maxlength="200" required aria-describedby="f-firma-fehler">
-            <p class="fehler" id="f-firma-fehler" hidden>Bitte geben Sie den Namen Ihres Betriebs an.</p>
-          </div>
-
-          <div class="feld">
-            <label for="f-plz">Postleitzahl Ihres Betriebs</label>
-            <input type="text" id="f-plz" name="plz" autocomplete="postal-code" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" required aria-describedby="f-plz-fehler">
-            <p class="fehler" id="f-plz-fehler" hidden>Bitte geben Sie eine fünfstellige Postleitzahl an.</p>
-          </div>
-
-          <div class="feld">
-            <label for="f-groesse">Betriebsgröße (freiwillig)</label>
-            <select id="f-groesse" name="betriebsgroesse">
-              <option value="">Bitte wählen</option>
-              <option value="1-4">1–4 Beschäftigte</option>
-              <option value="5-9">5–9 Beschäftigte</option>
-              <option value="10-19">10–19 Beschäftigte</option>
-              <option value="20-49">20–49 Beschäftigte</option>
-              <option value="50+">50 und mehr Beschäftigte</option>
-            </select>
-          </div>
-
-          <button class="btn" type="submit" id="pf-knopf">Angaben speichern</button>
-          <p class="meldung" id="pf-status" role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="erfolg" id="wl-erfolg" role="status" aria-live="polite" hidden>
-          <h3 tabindex="-1" id="erfolg-titel">Danke, Ihre Angaben sind gespeichert</h3>
-          <p id="erfolg-text">Bitte bestätigen Sie jetzt Ihre <span class="nb">E-Mail-Adresse</span> mit dem Link in unserer <span class="nb">E-Mail</span>. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach. Danach kommt Ihre erste <span class="nb">E-Mail</span> mit Ausschreibungen morgens um 6&nbsp;Uhr.</p>
-          <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
-        </div>
+        <a class="btn schluss__knopf" href="#testen">Jetzt 7 Tage testen</a>
       </div>
     </div>
   </section>
@@ -870,7 +861,11 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 
   function kampagne() {
     var u = {};
-    params.forEach(function (wert, name) { if (name.indexOf("utm_") === 0) u[name] = wert.slice(0, 120); });
+    // utm_* plus match type and ad group from the Google Ads URL suffix, so a signup
+    // can be traced to its keyword. The Google click id (gclid) is not kept.
+    params.forEach(function (wert, name) {
+      if (name.indexOf("utm_") === 0 || name === "mt" || name === "agid") u[name] = wert.slice(0, 120);
+    });
     return u;
   }
 
@@ -1002,10 +997,11 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 
   function zeigeProfil(t, hinweis) {
     token = t;
+    document.documentElement.classList.add("ist-angemeldet");
     byId("wl-form").hidden = true;
     pfForm.hidden = false;
     if (hinweis) byId("pf-hinweis").textContent = hinweis;
-    pfForm.querySelector("h3").focus();
+    pfForm.querySelector("h2").focus();
   }
 
   pfForm.addEventListener("submit", function (ereignis) {
@@ -1038,7 +1034,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     if (text) byId("erfolg-text").textContent = text;
     erfolg.hidden = false;
     byId("wl-test").hidden = LIVE;
-    erfolg.querySelector("h3").focus();
+    erfolg.querySelector("h2").focus();
   }
 
   // ---- Confirmation view -------------------------------------------------
@@ -1121,7 +1117,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   });
 
   // ---- Calls that follow the reader: bar on phones, header button on desktop.
-  // Both appear after the hero button has scrolled out; the bar leaves again at the form. ----
+  // Both appear after the hero form has scrolled out; the bar leaves again at the form. ----
   var kopf = document.querySelector(".kopf");
   if ("IntersectionObserver" in window) {
     var leiste = byId("leiste"), nachHeld = false, amFormular = false;
@@ -1130,7 +1126,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       nachHeld = !e[0].isIntersecting && e[0].boundingClientRect.bottom < 0;
       kopf.classList.toggle("mit-knopf", !e[0].isIntersecting);
       stelle();
-    }).observe(byId("held-knopf"));
+    }).observe(byId("testen"));
     new IntersectionObserver(function (e) { amFormular = e[0].isIntersecting; stelle(); }).observe(byId("anmeldung"));
   } else {
     kopf.classList.add("mit-knopf");
