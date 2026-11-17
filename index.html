@@ -176,7 +176,7 @@ a:active { background: var(--gelb-tief); color: var(--schwarz); }
   .kopf { position: sticky; top: 0; z-index: 20; }
   .kopf .marke { font-size: 1.5rem; }
   .kopf__cta { display: inline-flex; min-height: 40px; padding-inline: var(--s-16); font-size: 1.125rem; }
-  /* Header button only while the hero button is out of view. */
+  /* Header button only while the hero form is out of view. */
   .js .kopf__cta { opacity: 0; visibility: hidden; transition: opacity 200ms var(--aus), visibility 0s linear 200ms, background-color 150ms var(--aus), border-color 150ms var(--aus); }
   .js .mit-knopf .kopf__cta { opacity: 1; visibility: visible; transition: opacity 200ms var(--aus), visibility 0s, background-color 150ms var(--aus), border-color 150ms var(--aus); }
 }
@@ -186,7 +186,6 @@ a:active { background: var(--gelb-tief); color: var(--schwarz); }
 .vorzeile { font: 600 1rem/1.25 var(--f-kopf); letter-spacing: 0.01em; margin-bottom: var(--s-16); max-width: none; hyphens: manual; }
 h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 .h1__zwei { display: block; margin-top: var(--s-16); font-weight: 500; font-size: var(--t-h1-2); line-height: 1.15; letter-spacing: 0; }
-.held__form { margin-top: var(--s-24); }
 .schluss__knopf { margin-top: var(--s-24); }
 .held__sub { margin-top: var(--s-32); padding-top: var(--s-16); border-top: 3px solid var(--schwarz); }
 @media (min-width: 900px) {
@@ -196,7 +195,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   h1 { grid-column: 1 / span 11; }
   .h1__zwei { margin-top: var(--s-24); }
   .held__sub { grid-column: 1 / span 5; grid-row: 3; margin-top: var(--s-48); font-size: 1.25rem; line-height: 1.5; }
-  .held .held__form { grid-column: 7 / span 6; grid-row: 3; margin-top: var(--s-48); }
+  .held .held__form { grid-column: 7 / span 6; grid-row: 3; margin-top: var(--s-48); scroll-margin-top: var(--s-96); }
 }
 
 /* Fact strip: figures in white. Yellow stays with the hero above. */
@@ -329,12 +328,12 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   .faq__liste { grid-column: 6 / span 7; }
 }
 
-/* ---------- 3.8 Final CTA and 3.9 form. Spacing on the 4 px form grid. ---------- */
+/* ---------- 3.8 Final CTA, and the form (in the hero). Spacing on the 4 px form grid. ---------- */
 .schluss__text p { margin-top: var(--s-16); font-size: var(--t-lead); line-height: 1.45; }
 .formblatt { margin-top: var(--s-32); background: var(--weiss); border: 3px solid var(--schwarz); padding: var(--s-32) var(--s-20); scroll-margin-top: var(--s-16); }
 .formblatt a:hover { background: var(--gelb); color: var(--schwarz); }
-.formblatt h3 { margin-bottom: var(--s-24); }
-.formblatt h3:focus { outline: none; }
+.formblatt h2 { font-size: var(--t-h3); line-height: 1.15; letter-spacing: 0; margin-bottom: var(--s-24); }
+.formblatt h2:focus { outline: none; }
 .feld { margin-bottom: var(--s-20); }
 .feld label { display: block; margin-bottom: var(--s-8); font: 600 1rem/1.3 var(--f-text); }
 .feld input:not([type="checkbox"]), .feld select {
@@ -363,12 +362,11 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 .meldung.ist-fehler { border-left-color: var(--rot); color: var(--rot); }
 .formblatt__unter { margin-top: var(--s-16); font-size: 1rem; line-height: 1.45; }
 .formblatt__recht { margin-top: var(--s-8); font-size: var(--t-klein); line-height: 1.45; color: var(--text-2); }
-.erfolg h3 { margin-bottom: var(--s-16); }
+.erfolg h2 { margin-bottom: var(--s-16); }
 .test { margin-top: var(--s-24); padding: var(--s-16); border: 2px dashed var(--text-2); font-size: var(--t-klein); line-height: 1.5; color: var(--text-2); }
 @media (min-width: 640px) { .formblatt { padding: var(--s-48) var(--s-40); } }
 @media (min-width: 900px) {
-  .schluss__text { grid-column: 1 / span 5; position: sticky; top: var(--s-96); align-self: start; }
-  .formblatt { grid-column: 7 / span 6; margin-top: 0; scroll-margin-top: var(--s-96); }
+  .schluss__text { grid-column: 1 / span 8; }
 }
 
 /* ---------- Footer ---------- */
@@ -389,6 +387,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 /* ---------- 3.10 Page after the confirmation click (?bestaetigt=1) ---------- */
 #bestaetigt { display: none; }
 .ist-bestaetigt #seite, .ist-bestaetigt .leiste, .ist-bestaetigt .kopf__cta { display: none; }
+.ist-angemeldet .leiste, .ist-angemeldet .kopf__cta, .ist-angemeldet .schluss__knopf { display: none; }
 .ist-bestaetigt #bestaetigt, .ist-bestaetigt #bestaetigt[hidden] { display: block !important; }
 .ist-bestaetigt .fuss { padding-bottom: var(--s-32); }
 .dank { background: var(--gelb); padding-block: var(--s-48) var(--s-64); }
@@ -465,7 +464,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
                 data-senden="Wird gesendet …"
                 data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
                 data-doppelt="Diese Adresse ist schon eingetragen. Mit dem Link in unserer E-Mail können Sie Ihre Angaben ergänzen.">
-            <h3>Bieterpost 7 Tage kostenlos testen</h3>
+            <h2>Bieterpost 7 Tage kostenlos testen</h2>
 
             <div class="feld">
               <label for="f-email">E-Mail-Adresse</label>
@@ -494,7 +493,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
                 data-senden="Wird gespeichert …"
                 data-fehler="Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal."
                 data-unbekannt="Wir finden Ihre Anmeldung nicht. Bitte melden Sie sich oben neu an.">
-            <h3 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h3>
+            <h2 tabindex="-1">Fast geschafft: Für welches Gewerk suchen Sie Aufträge?</h2>
             <p class="formblatt__unter" id="pf-hinweis">Wir haben Ihnen eine <span class="nb">E-Mail</span> mit einem Bestätigungslink geschickt. Damit wir Ihnen die passenden Ausschreibungen schicken können, brauchen wir noch ein paar Angaben zu Ihrem Betrieb.</p>
 
             <div class="feld">
@@ -579,7 +578,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
           </form>
 
           <div class="erfolg" id="wl-erfolg" role="status" aria-live="polite" hidden>
-            <h3 tabindex="-1" id="erfolg-titel">Danke, Ihre Angaben sind gespeichert</h3>
+            <h2 tabindex="-1" id="erfolg-titel">Danke, Ihre Angaben sind gespeichert</h2>
             <p id="erfolg-text">Bitte bestätigen Sie jetzt Ihre <span class="nb">E-Mail-Adresse</span> mit dem Link in unserer <span class="nb">E-Mail</span>. Falls sie nicht ankommt, sehen Sie bitte im Spam-Ordner nach. Danach kommt Ihre erste <span class="nb">E-Mail</span> mit Ausschreibungen morgens um 6&nbsp;Uhr.</p>
             <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
           </div>
@@ -768,7 +767,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     </div>
   </section>
 
-  <!-- 3.8 Final CTA + 3.9 Form + 3.10 Success -->
+  <!-- 3.8 Final CTA: links up to the form in the hero -->
   <section class="abschnitt abschnitt--gelb schluss" id="anmeldung" aria-labelledby="h-anmeldung">
     <div class="rahmen g12">
       <div class="schluss__text">
@@ -862,10 +861,10 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 
   function kampagne() {
     var u = {};
-    // utm_* plus what Google Ads adds (URL suffix, auto-tagging): click id for the
-    // offline conversion upload, match type, ad group.
+    // utm_* plus match type and ad group from the Google Ads URL suffix, so a signup
+    // can be traced to its keyword. The Google click id (gclid) is not kept.
     params.forEach(function (wert, name) {
-      if (name.indexOf("utm_") === 0 || name === "gclid" || name === "mt" || name === "agid") u[name] = wert.slice(0, 120);
+      if (name.indexOf("utm_") === 0 || name === "mt" || name === "agid") u[name] = wert.slice(0, 120);
     });
     return u;
   }
@@ -998,10 +997,11 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
 
   function zeigeProfil(t, hinweis) {
     token = t;
+    document.documentElement.classList.add("ist-angemeldet");
     byId("wl-form").hidden = true;
     pfForm.hidden = false;
     if (hinweis) byId("pf-hinweis").textContent = hinweis;
-    pfForm.querySelector("h3").focus();
+    pfForm.querySelector("h2").focus();
   }
 
   pfForm.addEventListener("submit", function (ereignis) {
@@ -1034,7 +1034,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     if (text) byId("erfolg-text").textContent = text;
     erfolg.hidden = false;
     byId("wl-test").hidden = LIVE;
-    erfolg.querySelector("h3").focus();
+    erfolg.querySelector("h2").focus();
   }
 
   // ---- Confirmation view -------------------------------------------------
