@@ -442,16 +442,50 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   <section aria-labelledby="h-held">
     <div class="held">
       <div class="rahmen g12 held__in">
-        <p class="vorzeile">Für Handwerks- und Baubetriebe · 7 Tage kostenlos testen</p>
+        <p class="vorzeile" id="vorzeile">Für Handwerks- und Baubetriebe · 7 Tage kostenlos testen</p>
         <h1 id="h-held"><span id="h1-eins">Öffentliche Ausschreibungen für Ihr Gewerk, jeden Morgen per <span class="nb">E-Mail</span></span> <span class="h1__zwei" id="h1-zwei">Auch die, bei denen das Gewerk nur in der Beschreibung steht</span></h1>
         <script>
           // Headline test: ?v=b swaps H1 and second line. Variant A is the markup above.
+          // Trade pages: ?gewerk=<slug> (copy.md 4.3) swap eyebrow, H1, second line and
+          // preselect the trade in step 2. gewerk wins over v; an unknown slug shows A.
           (function () {
             var V = {
               b: ["Rund jede dritte Bau&shy;ausschreibung hat nur den Code „Bauarbeiten“", "Bieterpost liest nach, welches Gewerk gesucht wird"]
             };
-            var m = /[?&]v=([b])(&|$)/i.exec(location.search);
-            var v = m ? m[1].toLowerCase() : "a";
+            // slug: [form option, eyebrow, H1 trade, second line]
+            var G = {
+              elektro: ["Elektro", "Elektrobetriebe", "Elektroarbeiten", "Auch die, bei denen die Elektroarbeiten nur in der Beschreibung stehen"],
+              shk: ["Heizung, Lüftung, Sanitär", "SHK-Betriebe", "Heizung, Lüftung und Sanitär", "Auch die, bei denen HLS nur im Titel oder in der Beschreibung steht"],
+              maler: ["Maler und Lackierer", "Maler- und Lackierbetriebe", "Maler- und Lackierarbeiten", "Auch die, bei denen die Malerarbeiten nur in der Beschreibung stehen"],
+              tischler: ["Tischler / Schreiner", "Tischlereien und Schreinereien", "Tischler- und Schreinerarbeiten", "Auch die, bei denen Fenster und Türen nur in der Beschreibung stehen"],
+              dach: ["Dachdecker, Zimmerer, Klempner", "Dachdecker, Zimmerer und Klempner", "Dach-, Zimmerer- und Klempnerarbeiten", "Auch die, bei denen das Dach nur in der Beschreibung steht"],
+              trockenbau: ["Trockenbau, Putz, Stuck", "Trockenbau-, Putz- und Stuckbetriebe", "Trockenbau, Putz und Stuck", "Auch die, bei denen der Innenausbau nur in der Beschreibung steht"],
+              fliesen: ["Fliesen, Estrich, Bodenbelag", "Fliesen-, Estrich- und Bodenleger", "Fliesen, Estrich und Bodenbeläge", "Auch die, bei denen der Boden nur in der Beschreibung steht"],
+              rohbau: ["Maurer, Beton, Rohbau", "Maurer- und Rohbaubetriebe", "Maurer-, Beton- und Rohbauarbeiten", "Auch die, bei denen der Rohbau nur in der Beschreibung steht"],
+              tiefbau: ["Straßen- und Tiefbau", "Straßen- und Tiefbaubetriebe", "Straßen- und Tiefbau", "Auch die, bei denen Erd- und Kanalarbeiten nur in der Beschreibung stehen"],
+              galabau: ["Garten- und Landschaftsbau", "Garten- und Landschaftsbaubetriebe", "Garten- und Landschaftsbau", "Auch die, bei denen die Außenanlagen nur in der Beschreibung stehen"],
+              metallbau: ["Metallbau", "Metallbaubetriebe und Schlossereien", "Metallbau und Schlosserarbeiten", "Auch die, bei denen der Metallbau nur in der Beschreibung steht"],
+              geruestbau: ["Gerüstbau", "Gerüstbaubetriebe", "Gerüstbau", "Auch die, bei denen das Gerüst nur in der Beschreibung steht"],
+              abbruch: ["Abbruch und Rückbau", "Abbruch- und Rückbaubetriebe", "Abbruch und Rückbau", "Auch die, bei denen der Abbruch nur in der Beschreibung steht"],
+              reinigung: ["Gebäudereinigung", "Gebäudereinigungen", "Gebäudereinigung", "Auch Bauendreinigung, die als Los in einer Bauausschreibung steht"]
+            };
+            var SUB_REINIGUNG = "Bieterpost liest jeden Tag alle neuen Ausschreibungen aus dem Bekanntmachungsservice des Bundes, auch die Lose von Bauausschreibungen, und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Gebäudereinigung in Ihrem Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.";
+            var q = new URLSearchParams(location.search);
+            var slug = (q.get("gewerk") || "").toLowerCase();
+            var g = G.hasOwnProperty(slug) ? G[slug] : null;
+            if (g) {
+              document.documentElement.setAttribute("data-variante", "g-" + slug);
+              document.getElementById("vorzeile").textContent = "Für " + g[1] + " · 7 Tage kostenlos testen";
+              document.getElementById("h1-eins").innerHTML = "Öffentliche Ausschreibungen für " + g[2] + ", jeden Morgen per <span class=\"nb\">E-Mail</span>";
+              document.getElementById("h1-zwei").textContent = g[3];
+              document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("f-gewerk").value = g[0];
+                if (slug === "reinigung") document.getElementById("held-sub").innerHTML = SUB_REINIGUNG;
+              });
+              return;
+            }
+            var v = (q.get("v") || "a").toLowerCase();
+            if (!V[v]) v = "a";
             document.documentElement.setAttribute("data-variante", v);
             if (V[v]) {
               document.getElementById("h1-eins").innerHTML = V[v][0];
@@ -583,7 +617,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
           </div>
         </div>
-        <p class="held__sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
+        <p class="held__sub" id="held-sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
       </div>
     </div>
 
