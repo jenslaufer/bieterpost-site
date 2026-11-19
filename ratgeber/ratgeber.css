@@ -1,0 +1,106 @@
+/* Ratgeber: "Baustelle" tokens from index.html, set for long reading. Fonts from /fonts/, no third-party requests. */
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("/fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/barlow-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; font-style: normal; font-display: swap; src: url("/fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed Ersatz"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Roboto Bold"), local("Helvetica-Bold"); font-weight: 700; size-adjust: 75%; }
+
+:root {
+  --gelb: #FFC400; --gelb-tief: #E3AE00; --schwarz: #111110; --kohle: #33332F; --weiss: #FFFFFF;
+  --beton: #ECEAE5; --linie: #C6C3BB; --text-2: #4A4A46; --stahl: #7C7A74;
+  --f-kopf: "Barlow Condensed", "Barlow Condensed Ersatz", "DIN Condensed", "Arial Narrow", sans-serif;
+  --f-text: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --rand: 16px; --aus: cubic-bezier(0.2, 0.8, 0.2, 1); --fokus: var(--schwarz);
+}
+@media (min-width: 700px) { :root { --rand: 32px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--weiss); color: var(--schwarz);
+  font: 400 1.0625rem/1.6 var(--f-text); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+@media (min-width: 700px) { body { font-size: 1.125rem; } }
+main { flex: 1 0 auto; padding-block: 40px 96px; }
+.rahmen { width: 100%; max-width: 44rem; margin-inline: auto; padding-inline: var(--rand); }
+.rahmen--breit { max-width: 60rem; }
+
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: background-color 150ms var(--aus); }
+a:hover { background: var(--gelb); color: var(--schwarz); }
+:focus-visible { outline: 3px solid var(--fokus); outline-offset: 3px; }
+
+/* Header and footer */
+.kopf { background: var(--schwarz); color: var(--weiss); --fokus: var(--gelb); }
+.kopf .rahmen { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; max-width: 60rem; }
+.marke { display: inline-flex; align-items: center; gap: 8px; font: 700 1.375rem/1 var(--f-kopf); letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+.marke::before { content: ""; width: 16px; height: 16px; background: linear-gradient(var(--gelb), var(--gelb)) 0 0 / 16px 10px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 3px 100% / 2px 6px no-repeat, linear-gradient(var(--gelb), var(--gelb)) 11px 100% / 2px 6px no-repeat; }
+.marke:hover { background: none; color: var(--gelb); }
+.kopf nav a { font-weight: 600; font-size: 1rem; text-decoration: none; padding: 8px 0; }
+.kopf nav a:hover { background: none; color: var(--gelb); }
+.fuss { background: var(--schwarz); color: var(--weiss); padding-block: 32px; --fokus: var(--gelb); }
+.fuss .rahmen { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; max-width: 60rem; }
+.fuss nav { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 1rem; }
+.fuss nav a { display: inline-block; padding-block: 8px; }
+
+/* Article */
+.pfad { font-size: 0.875rem; color: var(--text-2); margin: 0 0 24px; }
+.pfad a { color: inherit; }
+h1, h2, h3 { font-family: var(--f-kopf); font-weight: 700; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.25rem, 3vw + 1.4rem, 3.5rem); line-height: 1.05; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.625rem, 1.2vw + 1.3rem, 2.25rem); line-height: 1.1; margin: 56px 0 16px; scroll-margin-top: 24px; }
+h3 { font-size: 1.375rem; line-height: 1.2; margin: 32px 0 8px; }
+p, ul, ol { margin: 0 0 16px; }
+p, li { text-wrap: pretty; hyphens: auto; }
+ul, ol { padding-left: 1.25em; }
+li + li { margin-top: 6px; }
+strong { font-weight: 600; }
+.meta { margin: 16px 0 32px; font-size: 0.9375rem; color: var(--text-2); }
+.lead { font-size: 1.25rem; line-height: 1.5; margin-bottom: 32px; }
+@media (min-width: 700px) { .lead { font-size: 1.375rem; } }
+
+.kurz { background: var(--beton); padding: 24px; margin: 0 0 40px; border-left: 6px solid var(--gelb); }
+.kurz h2 { font-size: 1.5rem; margin: 0 0 12px; }
+.kurz ul { margin: 0; }
+.inhalt { margin: 0 0 40px; font-size: 1rem; }
+.inhalt h2 { font-size: 1.25rem; margin: 0 0 8px; }
+.inhalt ol { margin: 0; }
+
+.hinweis { border: 3px solid var(--schwarz); padding: 20px 24px; margin: 24px 0; }
+.hinweis p:last-child, .kurz p:last-child { margin-bottom: 0; }
+
+/* Tables scroll on their own, never the page */
+.tabelle { overflow-x: auto; margin: 24px 0 32px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; line-height: 1.4; font-variant-numeric: tabular-nums; }
+caption { text-align: left; font-weight: 600; padding-bottom: 8px; caption-side: top; }
+th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+thead th { border-bottom: 2px solid var(--schwarz); font-weight: 600; }
+td.zahl, th.zahl { text-align: right; padding-right: 0; padding-left: 12px; white-space: nowrap; }
+.quelle { font-size: 0.875rem; color: var(--text-2); margin-top: 8px; }
+
+/* Bar chart as a table: the numbers stay readable without CSS */
+.balken td.bar { width: 45%; padding-right: 0; }
+.balken .b { display: block; height: 14px; background: var(--schwarz); min-width: 2px; }
+.balken .b--gelb { background: var(--gelb); outline: 1px solid var(--gelb-tief); }
+
+figure { margin: 24px 0 32px; }
+figcaption { font-size: 0.875rem; color: var(--text-2); margin-top: 8px; }
+
+.aufruf { background: var(--schwarz); color: var(--weiss); padding: 32px 24px; margin: 56px 0 0; --fokus: var(--gelb); }
+.aufruf h2 { margin-top: 0; color: var(--gelb); }
+.aufruf p { max-width: 56ch; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 28px; border: 3px solid var(--gelb);
+  background: var(--gelb); color: var(--schwarz); font: 700 1.25rem/1.1 var(--f-kopf); text-decoration: none; }
+.btn:hover { background: var(--weiss); border-color: var(--weiss); }
+
+.quellen { font-size: 0.9375rem; color: var(--text-2); }
+.quellen li { overflow-wrap: anywhere; }
+.autor { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--linie); font-size: 0.9375rem; color: var(--text-2); }
+
+/* Overview */
+.liste { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 24px; }
+.liste li { margin: 0; border-top: 3px solid var(--schwarz); padding-top: 16px; }
+.liste h2 { font-size: 1.75rem; margin: 0 0 8px; }
+.liste h2 a { text-decoration: none; }
+.liste p { margin: 0 0 8px; }
+.liste .meta { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; } }
+@media print { .kopf, .fuss, .aufruf { display: none; } }
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
