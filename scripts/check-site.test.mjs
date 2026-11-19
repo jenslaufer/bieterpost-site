@@ -1,4 +1,4 @@
-// Tests for check-site.mjs. Run: node --test scripts/
+// Tests for check-site.mjs. Run: node --test scripts/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
