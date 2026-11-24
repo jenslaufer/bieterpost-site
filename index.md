@@ -162,7 +162,7 @@ Nein. Die Unterlagen laden Sie auf dem Portal der Vergabestelle herunter, das An
 
 ### Ich nutze schon einen Ausschreibungsdienst. Was ist anders?
 
-Bieterpost liest auch Beschreibung und Lose. Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. So finden Sie auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Testen Sie es 7 Tage parallel und vergleichen Sie.
+Bieterpost liest auch Beschreibung und Lose und findet so auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. Testen Sie es 7 Tage parallel und vergleichen Sie.
 
 ### Was passiert mit meinen Daten?
 
