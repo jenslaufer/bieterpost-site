@@ -1,0 +1,25 @@
+# Bieterpost
+
+> Bieterpost ist ein Ausschreibungsdienst für Handwerks- und Baubetriebe in Deutschland: Er schickt jeden Morgen um 6 Uhr per E-Mail die neuen öffentlichen Ausschreibungen für das eigene Gewerk und Bundesland, auch wenn das Gewerk nur in der Beschreibung steht. 7 Tage kostenlos, danach 79 € im Monat zzgl. MwSt., monatlich kündbar, nur für Unternehmen.
+
+Bieterpost liest jeden Tag alle neuen Ausschreibungen aus dem Bekanntmachungsservice des Bundes (oeffentlichevergabe.de), einschließlich Beschreibung und Losen, und fasst jede in zwei, drei Sätzen zusammen. Bieterpost gibt keine Angebote ab und kalkuliert nicht. Betreiber: Solytics GmbH.
+
+## Produkt
+
+- [Bieterpost: Öffentliche Ausschreibungen für Ihr Gewerk](https://bieterpost.de/index.md): So funktioniert der Dienst, Preis, Gewerke, Regionen, häufige Fragen
+
+## Ratgeber
+
+- [Ratgeber öffentliche Ausschreibungen](https://bieterpost.de/ratgeber/index.md): Übersicht aller Artikel
+- [Öffentliche Ausschreibungen nach Gewerk: Wie viele Aufträge es gibt](https://bieterpost.de/ratgeber/oeffentliche-ausschreibungen-nach-gewerk/index.md): 8.550 Vergabeverfahren aus sechs Wochen, nach 14 Gewerken und 16 Bundesländern ausgewertet, mit Fristen
+- [CPV-Codes für Bau und Handwerk: Liste nach Gewerk und was die Suche übersieht](https://bieterpost.de/ratgeber/cpv-codes-bau/index.md): Die Codes je Gewerk aus der amtlichen Tabelle; bei nationalen Ausschreibungen findet die Code-Suche nur 29 % der passenden Aufträge
+- [Wertgrenzen 2026: Direktauftrag und Beschränkte Ausschreibung im Vergleich](https://bieterpost.de/ratgeber/wertgrenzen-vergabe-2026/index.md): Am Amtstext geprüfte Wertgrenzen für Bund und acht Länder, dazu Bauvergaben nach Bundesland und Verfahren
+- [Bundestariftreuegesetz: Was Handwerksbetriebe bei Bundesaufträgen unterschreiben](https://bieterpost.de/ratgeber/tariftreue-bundesauftraege/index.md): Anwendungsbereich, Tariftreueversprechen, Nachunternehmerhaftung und Kontrolle, mit Checkliste
+- [Ausschreibungen Gebäudereinigung: Fristen, Preise, Fallstricke](https://bieterpost.de/ratgeber/ausschreibungen-gebaeudereinigung/index.md): 381 Reinigungsvergaben in sechs Wochen, Kalkulation mit Leistungswerten, häufige Ausschlussgründe
+- [Mindestlohn Gebäudereinigung 2027: Was ab 1. Januar gilt](https://bieterpost.de/ratgeber/mindestlohn-gebaeudereinigung-2027/index.md): Die Verordnung läuft am 31.12.2026 aus, die Tarifrunde ist offen; Stand und Folgen für Betriebe
+
+## Optional
+
+- [AGB](https://bieterpost.de/agb.html)
+- [Datenschutzerklärung](https://bieterpost.de/datenschutz.html)
+- [Impressum](https://bieterpost.de/impressum.html)

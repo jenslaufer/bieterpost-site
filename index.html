@@ -424,6 +424,145 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   *, *::before, *::after { transition-duration: 0.01ms !important; transition-delay: 0s !important; animation: none !important; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bieterpost.de/#organisation",
+      "name": "Solytics GmbH",
+      "url": "https://bieterpost.de/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Hörsteiner Str. 20a",
+        "postalCode": "63791",
+        "addressLocality": "Karlstein a. Main",
+        "addressCountry": "DE"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://bieterpost.de/#dienst",
+      "name": "Bieterpost",
+      "url": "https://bieterpost.de/",
+      "inLanguage": "de-DE",
+      "serviceType": "Öffentliche Ausschreibungen per E-Mail",
+      "description": "Bieterpost schickt Bau- und Handwerksbetrieben jeden Morgen um 6 Uhr per E-Mail die neuen öffentlichen Ausschreibungen für ihr Gewerk und ihr Bundesland, auch wenn das Gewerk nur in der Beschreibung steht.",
+      "provider": {
+        "@id": "https://bieterpost.de/#organisation"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Deutschland"
+      },
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Handwerks- und Baubetriebe, Selbstständige und Planungsbüros"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "79.00",
+        "priceCurrency": "EUR",
+        "url": "https://bieterpost.de/#testen",
+        "description": "7 Tage kostenlos testen, danach 79 € im Monat zzgl. MwSt., monatlich kündbar. Nur für Unternehmen.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "79.00",
+          "priceCurrency": "EUR",
+          "unitCode": "MON",
+          "valueAddedTaxIncluded": false
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Woher kommen die Ausschreibungen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aus dem Bekanntmachungsservice des Bundes (oeffentlichevergabe.de). Dort werden Ausschreibungen von Bund, Ländern und Gemeinden gesammelt, nationale und EU-weite. Die Unterlagen selbst liegen auf dem Portal der jeweiligen Vergabestelle, Bieterpost verlinkt dorthin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was kostet Bieterpost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "79 € im Monat zzgl. MwSt. Die ersten 7 Tage sind kostenlos, ohne Zahlungsdaten. Bezahlt wird über Stripe. Ihre Rechnungen finden Sie im Kundenportal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Für wen ist Bieterpost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Für Unternehmen: Handwerks- und Baubetriebe, Selbstständige und Planungsbüros. Verträge mit Privatpersonen schließen wir nicht. Details stehen in den AGB."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert nach den 7 Tagen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wenn Sie nicht abonnieren, endet der Test nach dem siebten Tag von selbst. Sie bekommen dann keine Ausschreibungen mehr und zahlen nichts. Am fünften Tag erinnern wir Sie per E-Mail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie kündige ich?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jederzeit zum Ende des laufenden Monats. Den Link zum Kundenportal finden Sie in jeder E-Mail von Bieterpost."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Für welche Gewerke?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Für Bau und Ausbau, zum Beispiel Elektro, Heizung, Lüftung und Sanitär, Maler, Tischler, Dach, Trockenbau, Fliesen, Rohbau, Straßen- und Tiefbau, Metallbau und Gerüstbau, außerdem Gebäudereinigung. Die Auswahl im Formular zeigt alle Gewerke."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Für welche Regionen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Für ganz Deutschland. Sie wählen das Bundesland, in dem Sie Aufträge suchen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Gibt Bieterpost das Angebot für mich ab?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Die Unterlagen laden Sie auf dem Portal der Vergabestelle herunter, das Angebot geben Sie dort selbst ab. Bieterpost sorgt dafür, dass Sie die passenden Ausschreibungen rechtzeitig sehen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ich nutze schon einen Ausschreibungsdienst. Was ist anders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bieterpost liest auch Beschreibung und Lose. Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. So finden Sie auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Testen Sie es 7 Tage parallel und vergleichen Sie."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert mit meinen Daten?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wir speichern Ihre E-Mail-Adresse, Ihr Gewerk, Ihr Bundesland, Firmenname und Postleitzahl und, wenn Sie es angeben, die Betriebsgröße. Wir zählen, welche Ausschreibungen Sie in der E-Mail anklicken, um die Auswahl zu verbessern. Sie können sich in jeder E-Mail abmelden. Details stehen in der Datenschutzerklärung."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
@@ -617,7 +756,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
             <p class="test" id="wl-test" hidden>TESTMODUS: FORM_ENDPOINT ist nicht gesetzt. Es wurde nichts gesendet und nichts gespeichert. <a href="?bestaetigt=1">Seite nach dem Bestätigungsklick ansehen</a></p>
           </div>
         </div>
-        <p class="held__sub" id="held-sub">Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und schickt Ihnen jeden Morgen um 6&nbsp;Uhr die neuen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
+        <p class="held__sub" id="held-sub">Bieterpost ist ein Ausschreibungsdienst für Handwerks- und Baubetriebe: Er schickt Ihnen jeden Morgen um 6&nbsp;Uhr per <span class="nb">E-Mail</span> die neuen öffentlichen Ausschreibungen für Ihr Gewerk und Ihr Bundesland. Bei rund jeder dritten Bauausschreibung steht als Code nur <span class="nb">„45 – Bauarbeiten“.</span> Welches Gewerk gesucht wird, erfährt man erst aus der Beschreibung. Bieterpost liest die Beschreibung mit und findet so auch diese Ausschreibungen. Zu jeder steht eine kurze Zusammenfassung, der Auftraggeber, der Ort, die Frist und der Link zu den Unterlagen.</p>
       </div>
     </div>
 
@@ -763,7 +902,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Was kostet Bieterpost?</summary>
-          <p>Die ersten 7 Tage sind kostenlos, ohne Zahlungsdaten. Danach kostet Bieterpost 79&nbsp;€ im Monat zzgl. MwSt. Bezahlt wird über Stripe. Ihre Rechnungen finden Sie im Kundenportal.</p>
+          <p>79&nbsp;€ im Monat zzgl. MwSt. Die ersten 7 Tage sind kostenlos, ohne Zahlungsdaten. Bezahlt wird über Stripe. Ihre Rechnungen finden Sie im Kundenportal.</p>
         </details>
         <details>
           <summary>Für wen ist Bieterpost?</summary>
@@ -771,7 +910,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Was passiert nach den 7 Tagen?</summary>
-          <p>Am fünften Tag erinnern wir Sie per <span class="nb">E-Mail</span>. Wenn Sie nicht abonnieren, endet der Test nach dem siebten Tag von selbst. Sie bekommen dann keine Ausschreibungen mehr und zahlen nichts.</p>
+          <p>Wenn Sie nicht abonnieren, endet der Test nach dem siebten Tag von selbst. Sie bekommen dann keine Ausschreibungen mehr und zahlen nichts. Am fünften Tag erinnern wir Sie per <span class="nb">E-Mail</span>.</p>
         </details>
         <details>
           <summary>Wie kündige ich?</summary>
@@ -791,7 +930,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
         </details>
         <details>
           <summary>Ich nutze schon einen Ausschreibungsdienst. Was ist anders?</summary>
-          <p>Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. Bieterpost liest zusätzlich Beschreibung und Lose. So finden Sie auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Testen Sie es 7 Tage parallel und vergleichen Sie.</p>
+          <p>Bieterpost liest auch Beschreibung und Lose. Ein Suchprofil filtert nach CPV-Code und nach Stichwörtern im Titel. So finden Sie auch die Ausschreibungen, die nur den allgemeinen Code „Bauarbeiten“ tragen. Testen Sie es 7 Tage parallel und vergleichen Sie.</p>
         </details>
         <details>
           <summary>Was passiert mit meinen Daten?</summary>
