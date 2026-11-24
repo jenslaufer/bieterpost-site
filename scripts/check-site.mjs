@@ -2,12 +2,16 @@
 // Fails when a page could be indexed wrongly: every indexable page sits in the sitemap with a
 // matching canonical, and every internal link hits a file directly (GitHub Pages answers
 // /dir with a 301 to /dir/, so internal links and sitemap URLs must end in / or name a file).
+// It also fails when the site turns invisible to LLMs and AI agents: robots.txt names the AI search
+// crawlers, llms.txt links only to Markdown files that exist, and the homepage carries
+// Organization and Offer JSON-LD whose FAQ questions match the visible FAQ.
 // Usage: node scripts/check-site.mjs [site-dir]
 import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { join, relative, dirname, posix } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ORIGIN = "https://bieterpost.de";
+const AI_SEARCH_BOTS = ["OAI-SearchBot", "ChatGPT-User", "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User", "Bingbot", "Googlebot"];
 const SKIP_DIRS = new Set([".git", "node_modules", "scripts", "fonts", ".github"]);
 
 function htmlFiles(dir, root = dir) {
@@ -21,6 +25,36 @@ function htmlFiles(dir, root = dir) {
 const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`, "i"))?.[1];
 const tags = (html, name) => html.match(new RegExp(`<${name}\\b[^>]*>`, "gi")) ?? [];
 const metaContent = (html, key, value) => tags(html, "meta").map((t) => (attr(t, key) === value ? attr(t, "content") : undefined)).find((v) => v !== undefined);
+
+// Every JSON-LD node in a parsed value, depth first.
+const ldNodes = (v) => (Array.isArray(v) ? v.flatMap(ldNodes) : v && typeof v === "object" ? [v, ...Object.values(v).flatMap(ldNodes)] : []);
+const textOf = (html) => html.replace(/<[^>]*>/g, "").replace(/&shy;/g, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+
+function checkLlmsTxt(root, errors) {
+  const path = join(root, "llms.txt");
+  if (!existsSync(path)) return errors.push("llms.txt: missing");
+  const txt = readFileSync(path, "utf8");
+  if (!/^# \S/m.test(txt)) errors.push("llms.txt: missing H1 (# Name)");
+  if (!/^> \S/m.test(txt)) errors.push("llms.txt: missing summary blockquote (> ...)");
+  for (const [, url] of txt.matchAll(/\]\(([^)]+)\)/g)) {
+    if (!url.startsWith(`${ORIGIN}/`)) continue;
+    const file = url.slice(ORIGIN.length + 1);
+    if (!existsSync(join(root, file))) errors.push(`llms.txt: ${url}: no such file`);
+  }
+}
+
+function checkHomeLd(html, errors) {
+  const nodes = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].flatMap((m) => {
+    try { return ldNodes(JSON.parse(m[1])); } catch { return []; }
+  });
+  const ofType = (t) => nodes.filter((n) => [n["@type"]].flat().includes(t));
+  if (!ofType("Organization").length) errors.push("index.html: JSON-LD has no Organization");
+  if (!ofType("Offer").some((o) => o.price && o.priceCurrency)) errors.push("index.html: JSON-LD has no Offer with price and priceCurrency");
+  const visible = new Set([...html.matchAll(/<summary>([\s\S]*?)<\/summary>/gi)].map((m) => textOf(m[1])));
+  for (const q of ofType("Question")) {
+    if (!visible.has(q.name)) errors.push(`index.html: FAQPage question "${q.name}" is not a visible FAQ <summary>`);
+  }
+}
 
 // URL path of a file: "index.html" -> "/", "ratgeber/a/index.html" -> "/ratgeber/a/", "x.html" -> "/x.html"
 const urlPathOf = (file) => "/" + file.replace(/(^|\/)index\.html$/, "$1");
@@ -44,6 +78,10 @@ export function checkSite(root) {
   const robots = existsSync(join(root, "robots.txt")) ? readFileSync(join(root, "robots.txt"), "utf8") : "";
   if (!robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) errors.push(`robots.txt: missing "Sitemap: ${ORIGIN}/sitemap.xml"`);
   if (/^Disallow:\s*\/\s*$/m.test(robots)) errors.push("robots.txt: Disallow: / blocks the site");
+  for (const bot of AI_SEARCH_BOTS) {
+    if (!new RegExp(`^User-agent:\\s*${bot}\\s*$`, "mi").test(robots)) errors.push(`robots.txt: no explicit block for ${bot}`);
+  }
+  checkLlmsTxt(root, errors);
 
   const sitemapXml = existsSync(join(root, "sitemap.xml")) ? readFileSync(join(root, "sitemap.xml"), "utf8") : "";
   if (!sitemapXml) errors.push("sitemap.xml: missing");
@@ -62,6 +100,7 @@ export function checkSite(root) {
     const noindex = /noindex/i.test(metaContent(html, "name", "robots") ?? "");
     const url = sitemapFiles.get(file);
 
+    if (file === "index.html") checkHomeLd(html, errors);
     if (file === "404.html") {
       if (!noindex) errors.push("404.html: needs noindex");
     } else if (url) {
