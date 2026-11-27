@@ -563,6 +563,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
   ]
 }
 </script>
+<script src="/affiliate.js" defer></script>
 </head>
 <body>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
@@ -996,6 +997,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       <a href="impressum.html">Impressum</a>
       <a href="agb.html">AGB</a>
       <a href="datenschutz.html">Datenschutz</a>
+      <a href="https://affiliate.solytics.de/p/bieterpost">Partner werden</a>
     </nav>
   </div>
 </footer>
@@ -1060,7 +1062,8 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
     var feld = function (name, wert) {
       if (wert) attribute[name] = String(wert).replace(/:\/\//g, " ").replace(/\.(?=\S)/g, ". ").slice(0, 200);
     };
-    ["profil_token", "variant"].forEach(function (n) { feld(n, daten[n]); });
+    // aff_ref "<ref>.<click_id>" arrives as "<ref>. <click_id>"; the app restores the dot.
+    ["profil_token", "variant", "aff_ref"].forEach(function (n) { feld(n, daten[n]); });
     Object.keys(daten.utm).forEach(function (n) { feld(n, daten.utm[n]); });
     var abbruch = new AbortController();
     var uhr = setTimeout(function () { abbruch.abort(); }, 12000);
@@ -1281,6 +1284,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       type: "signup",
       email: byId("f-email").value.trim(),
       profil_token: neu,
+      aff_ref: (document.cookie.match(/(?:^|; )aff_ref=([^;]*)/) || [])[1] || null, // set by affiliate.js
       einwilligung: true
     }).then(function (ergebnis) {
       fertig();
