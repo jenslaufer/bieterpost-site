@@ -27,7 +27,9 @@
       ".aff-hinweis button{min-height:44px;padding:8px 20px;font:inherit;font-weight:700;cursor:pointer;" +
       "border:3px solid var(--gelb,#FFC400);background:var(--gelb,#FFC400);color:var(--schwarz,#111110)}" +
       ".aff-hinweis button:hover{background:var(--weiss,#fff);border-color:var(--weiss,#fff)}" +
-      ".aff-hinweis button:focus-visible{outline:3px solid var(--weiss,#fff);outline-offset:2px}";
+      ".aff-hinweis button:focus-visible{outline:3px solid var(--weiss,#fff);outline-offset:2px}" +
+      // While the notice is open it takes the bottom edge: the sticky signup bar (index.html) waits.
+      ".aff-offen .leiste{display:none}";
     var box = document.createElement("section");
     box.className = "aff-hinweis";
     box.setAttribute("aria-label", "Empfehlung eines Partners");
@@ -42,8 +44,12 @@
       if (!knopf) return;
       if (knopf.hasAttribute("data-ja") && window.affiliate) window.affiliate.consent();
       box.remove();
+      document.documentElement.classList.remove("aff-offen");
+      document.body.style.paddingBottom = "";
     });
     document.head.appendChild(stil);
     document.body.appendChild(box);
+    document.documentElement.classList.add("aff-offen");
+    document.body.style.paddingBottom = box.offsetHeight + "px"; // keep the footer reachable
   }
 })();
