@@ -1284,7 +1284,7 @@ h1 { font-size: var(--t-h1); line-height: 1.04; letter-spacing: -0.015em; }
       type: "signup",
       email: byId("f-email").value.trim(),
       profil_token: neu,
-      aff_ref: window.affiliate ? window.affiliate.ref() : null,
+      aff_ref: (document.cookie.match(/(?:^|; )aff_ref=([^;]*)/) || [])[1] || null, // set by affiliate.js
       einwilligung: true
     }).then(function (ergebnis) {
       fertig();

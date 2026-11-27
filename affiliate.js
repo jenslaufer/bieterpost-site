@@ -1,18 +1,17 @@
 /* Solytics partner program (bieterpost marketing/copy.md 3.12, datenschutz.html section 10).
-   Loads the affiliate snippet only for visitors from a partner link (?ref=) or with its
-   cookie, so everybody else makes no request to affiliate.solytics.de. The snippet sets
-   cookies only after consent: a partner-link visit shows the notice below. Declining
-   stores nothing, not even the decision. */
+   Loads the affiliate snippet only for visitors from a partner link (?ref=<partner>), so
+   everybody else makes no request to affiliate.solytics.de. The snippet sets cookies only
+   after consent, asked by the notice below. Declining stores nothing, not even the
+   decision. The signup form reads the aff_ref cookie itself (index.html). */
 (function () {
   "use strict";
-  var vomPartner = new URLSearchParams(location.search).has("ref");
-  if (!vomPartner && !/(?:^|; )aff_ref=/.test(document.cookie)) return;
+  if (!new URLSearchParams(location.search).get("ref")) return; // s.js ignores an empty ref too
 
   var s = document.createElement("script");
   s.src = "https://affiliate.solytics.de/s.js";
   s.setAttribute("data-product", "bieterpost");
   s.setAttribute("data-cookie-domain", "bieterpost.de");
-  if (vomPartner) s.onload = frage;
+  s.onload = frage;
   document.head.appendChild(s);
 
   function frage() {
@@ -34,7 +33,7 @@
     box.innerHTML =
       '<div class="aff-hinweis__in"><p>Sie kommen über die Empfehlung eines Partners. Dürfen wir das mit ' +
       "zwei Cookies festhalten? Dann erhält der Partner eine Provision, wenn Sie Bieterpost abonnieren. " +
-      'Für Sie ändert sich nichts. <a href="/datenschutz.html#partnerprogramm">Mehr dazu</a></p>' +
+      'Für Sie ändert sich nichts. <a href="/datenschutz.html#partnerprogramm" target="_blank" rel="noopener">Mehr dazu</a></p>' +
       '<div class="aff-hinweis__knoepfe"><button type="button" data-ja>Einverstanden</button>' +
       '<button type="button">Nein danke</button></div></div>';
     box.addEventListener("click", function (e) {
