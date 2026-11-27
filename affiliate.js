@@ -5,7 +5,8 @@
    decision. The signup form reads the aff_ref cookie itself (index.html). */
 (function () {
   "use strict";
-  if (!new URLSearchParams(location.search).get("ref")) return; // s.js ignores an empty ref too
+  // Same pattern as s.js and the service's refRE: s.js ignores any other ref, so do not ask.
+  if (!/^[a-z0-9][a-z0-9-]{2,31}$/.test(new URLSearchParams(location.search).get("ref") || "")) return;
 
   var s = document.createElement("script");
   s.src = "https://affiliate.solytics.de/s.js";
